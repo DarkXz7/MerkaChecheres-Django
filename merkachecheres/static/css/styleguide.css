@@ -64,9 +64,34 @@
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.LOGIN:hover,.olvidoButton:hover,.btn-facebook:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover,.dropdown:hover,.div:hover, .dropbtn:hover{
+
+.LOGIN:hover,.olvidoButton:hover,.btn-facebook:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover,.dropdown:hover,.div:hover, .dropbtn:hover, #checkout:hover, #clear-cart:hover, .close-btn:hover{
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     transform: scale(1.05);
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#checkout{
+    background-color: var(--color-verde);
+    color: var(--color-blanco);
+    font-family: var(--labels-font-family-regular);
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#clear-cart{
+    background-color: var( --color-redes-rojo);
+    color: var(--color-blanco);
+    font-family: var(--labels-font-family-regular);
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s; 
 }

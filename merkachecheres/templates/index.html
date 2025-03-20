@@ -9,8 +9,8 @@
     <title>Inicio</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/styleguide.css' %}">
+    <link rel="stylesheet" href="{% static 'css/carrito.css' %}">
 </head>
-
 <body>
     <div class="landing_page">
         <header>
@@ -52,15 +52,16 @@
                                 </div>
                                 <div class="icons">
                                     <div class="shopping_cart_simple">
-                                        <button class="dropbtn" onclick="yourFunction()">
+                                        <button class="dropbtn">
                                             <img src="{% static 'img/heart.png' %}" id="heartButton" alt="Inicio">
                                         </button>
                                     </div>
                                     <div class="shopping_cart_simple2">
                                         <div class="overlap_group">
-                                            <button class="dropbtn">
+                                            <button class="dropbtn" id="carrito-button">
                                                 <img src="{% static 'img/Shopping.png' %}" id="shoppingCar" alt="Inicio">
-                                            </button>
+                                            </button>                                            
+
                                             <div class="frame_3">
                                                 <div class="text_wrapper_3">2</div>
                                             </div>
@@ -73,6 +74,24 @@
                 </div>
             </div>
         </header>
+        <aside id="cart-sidebar">
+            <button id="close-cart" class="btn btn-light close-btn">
+                <i class="bi bi-x-lg">X</i>
+            </button>
+            <h2>Carrito de Compras</h2>
+            <ul id="cart-items" class="list-group">
+                <li class="list-group-item text-center">El carrito está vacío</li>
+            </ul>
+            <div class="cart-footer">
+                <p>Total: $<span id="cart-total">0.00</span></p>
+                <button id="clear-cart" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Vaciar Carrito
+                </button>
+                <button id="checkout" class="btn btn-success">
+                    <i class="bi bi-credit-card"></i> Pagar
+                </button>
+            </div>
+        </aside>
         <main>
             <section class="hero_secction">
                 <div class="widgets">
@@ -404,5 +423,6 @@
             
         </footer>
     </div>
+    <script src="{% static 'js/carrito-sidebar.js' %}"></script>
 </body>
 </html>
