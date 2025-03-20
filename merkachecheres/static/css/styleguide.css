@@ -64,9 +64,50 @@
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.LOGIN:hover,.olvidoButton:hover,.btn-facebook:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover,.dropdown:hover,.div:hover {
+.LOGIN:hover,.olvidoButton:hover,.btn-facebook:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover,.dropdown:hover,.div:hover, .dropbtn:hover{
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     transform: scale(1.05);
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.dropbtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    font-family: var(--labels-font-family-regular);
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+    overflow: hidden;
+    pointer-events: auto;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:focus-within .dropdown-content {
+    display: block;
 }
