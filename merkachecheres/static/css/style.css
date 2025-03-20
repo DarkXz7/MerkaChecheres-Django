@@ -25,7 +25,7 @@
 }
 
 /* landing_page */
-.landing_page {
+.landing_page,body {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,8 +34,9 @@
     gap: 24px;
     position: relative;
     background-color: #efe9de;
-
+    
 }
+
 
 /* 1. Barra de  navegacion */
 
@@ -252,8 +253,20 @@
 
 .landing_page .shopping_cart_simple {
     position: relative;
-    width: 32px;
-    height: 32px;
+    width: 62px;
+    height: 62px;
+    margin-top: 10px;
+}
+.landing_page .shopping_cart_simple2{
+    position: relative;
+    position: relative;
+    width: 62px;
+    height: 62px;
+    margin-top: 22px;
+} 
+#shoppingCar,#heartButton{
+    width: 25px;
+    
 }
 
 .landing_page .overlap_group {
