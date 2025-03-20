@@ -1651,16 +1651,57 @@ main {
     text-decoration: underline;
 }
 
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Ajustar el contenido del menú desplegable */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 5px 0;
+    z-index: 1;
+    top: calc(100% + 2px); /* Asegura que el menú esté justo debajo del botón */
+    left: 0; /* Alinea el menú con el botón */
+}
+
+/* Asegurar que el hover se mantenga activo */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-content {
+    pointer-events: auto;
+}
+/* Opcional: Ajustar el botón para evitar conflictos */
+.dropbtn {
+    background-color: transparent;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
 .register-container .btn-register {
+    
     width: 100%;
     background-color: var(--color-verde);
     color: var(--color-blanco);
     border: none;
     padding: 10px;
+    font-family: var(r);
     font-size: var(--labels-font-size-16);
     cursor: pointer;
     border-radius: 8px;
     margin-bottom: 15px;
+
 }
 
 .register-container .btn-register:hover {
@@ -1702,6 +1743,20 @@ main {
     background-color: #FFF !important;
 }
 
+.completaDatosGeneralContainer {
+    /*Esto centra los elemtentos en general*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.tittileContainer {
+    display: flex;
+    width: 513px;
+    padding-left: 15px;
+    margin-bottom: 40px;
 .completaDatosGeneralContainer {
     /*Esto centra los elemtentos en general*/
     display: flex;

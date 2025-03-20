@@ -64,7 +64,7 @@
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.LOGIN:hover,.olvidoButton:hover,.btn-facebook:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover {
+.LOGIN:hover,.olvidoButton:hover,.btn-facebook:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover,.dropdown:hover,.div:hover {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     transform: scale(1.05);
     cursor: pointer;
