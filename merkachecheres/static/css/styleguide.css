@@ -1,0 +1,72 @@
+:root {
+    --secondary-700: rgba(27, 99, 146, 1);
+    --gray-00: rgba(255, 255, 255, 1);
+    --title-font-family: "Montserrat", Helvetica;
+    --title-font-family-bold: "Montserrat-Bold", Helvetica;
+    --title-font-weight: 700;
+    --title-font-size: 40px;
+    --title-letter-spacing: 0px;
+    --title-line-height: normal;
+    --title-font-style: normal;
+    --description-font-family: "Mukta Vaani", Helvetica;
+    --description-font-weight: 500;
+    --description-font-size: 20px;
+    --description-letter-spacing: 0px;
+    --description-line-height: normal;
+    --description-font-style: normal;
+    --labels-font-family: "Roboto", Helvetica;
+    --labels-font-family-regular: "Roboto-Regular", Helvetica;
+    --labels-font-family-medium: "Roboto-Medium", Helvetica;
+    --labels-font-weight-400: 400;
+    --labels-font-size-12: 12px;
+    --labels-font-size-14: 14px;
+    --labels-font-size-16: 16px;
+    --labels-font-size-18: 18px;
+    --labels-font-size-22: 22px;
+    --labels-font-size-24: 24px;
+    --labels-letter-spacing-0: 0px;
+    --labels-line-height: normal;
+    --labels-font-style: normal;
+    --color-blanco: rgba(255, 255, 255);
+    --color-verde: rgba(146, 184, 105);
+    --color-verde-hover: rgba(146, 184, 105, 1);
+    --color-negro: rgba(0, 0, 0);
+    --color-gris-20: rgba(102, 102, 102, 0.2);
+    --color-gris-25: rgba(102, 102, 102, 0.25);
+    --color-gris-border-35: rgba(102, 102, 102, 0.35);
+    --color-gris-60: rgba(102, 102, 102, 0.6);
+    --color-gris-80: rgba(102, 102, 102, 0.8);
+    --color-gris: rgba(102, 102, 102, 1);
+    --color-rojo: rgba(240, 20, 47, 1);
+    --color-sombra: rgba(0, 0, 0, 0.12);
+    --color-redes-rojo: rgba(219, 74, 57, 1) ;
+    --color-redes-rojo-hover: rgba(196, 56, 45, 1);
+    --color-redes-azul-hover: rgba(54, 84, 159, 1);
+    --color-redes-azul: rgba(66, 103, 178, 1) ;
+    
+}
+.btn-facebook{
+    color: var(--color-blanco);
+    background-color:var(--color-redes-azul)
+}
+.olvidoButton{
+    background-color: transparent;
+}
+.btn-register,.btn-facebook,.btn-google{
+    font-family: var(--labels-font-family-regular);
+}
+.LOGIN,.olvidoButton,.btn-facebook,.btn-google{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.LOGIN:hover,.olvidoButton:hover,.btn-facebook:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
