@@ -193,10 +193,129 @@
     justify-content: space-between;
     align-items: flex-start;
 }
-.navbar:focus::placeholder{
+.navbar:focus::placeholder, .text-field:focus::placeholder {
     opacity: 0;
     transition: opacity 0.1s ease; /* Suaviza la transición */
 }
+
+
+
+@media (max-width: 768px) {
+    .landing_page {
+        padding: 10px;
+    }
+
+    .middle_nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .buscar {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .icons {
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    .hero_secction {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .widgets {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .mejores-vendedores .arrrow {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .categorias .items {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .product {
+        width: 100%;
+        height: auto;
+    }
+
+    .contenedor-productos {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    footer .frame-24 {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    footer .frame-30 {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Estilos para pantallas medianas (tabletas) */
+@media (max-width: 1024px) {
+    .middle_nav {
+        gap: 15px;
+    }
+
+    .buscar {
+        width: 80%;
+    }
+
+    .widgets {
+        gap: 15px;
+    }
+
+    .categorias .items {
+        gap: 15px;
+    }
+
+    .product {
+        width: 45%;
+    }
+
+    footer .frame-24 {
+        gap: 15px;
+    }
+}
+
+/* Estilos para pantallas grandes (escritorios) */
+@media (min-width: 1025px) {
+    .middle_nav {
+        gap: 20px;
+    }
+
+    .buscar {
+        width: 300px;
+    }
+
+    .widgets {
+        gap: 24px;
+    }
+
+    .categorias .items {
+        gap: 18px;
+    }
+
+    .product {
+        width: 234px;
+    }
+
+    footer .frame-24 {
+        gap: 24px;
+    }
+}
+
 
 .landing_page .frame_2 {
     display: flex;
@@ -733,6 +852,11 @@ main {
     background-position: center;
 }
 
+
+
+
+
+
 .landing_page .frame-14 {
     background-image: url('https://images.unsplash.com/photo-1484788984921-03950022c9ef?q=80&w=1532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
 }
@@ -798,6 +922,7 @@ main {
     padding: 10px;
     position: relative;
     margin-top: 40px;
+    height: 0px;
 }
 
 .landing_page .btn_primary-3 {
@@ -809,7 +934,7 @@ main {
     margin-top: -5px;
     margin-bottom: -5px;
     position: relative;
-    background-color: #a4c482;
+    
     border: 1px solid;
     align-items: center;
     justify-content: center;
@@ -872,6 +997,44 @@ main {
     flex-wrap: wrap;
     justify-content: center;
 }
+
+/* Asegúrate de que overlap_group-5 esté inicialmente oculto */
+/* Asegúrate de que overlap_group-5 esté inicialmente oculto */
+/* Asegúrate de que .BG esté inicialmente oculto */
+/* Asegúrate de que .BG esté inicialmente oculto */
+/* Estilo base para los productos */
+
+
+.blur {
+    filter: blur(5px);
+    pointer-events: none; /* Evita la interacción con los elementos desenfocados */
+}
+
+.product {
+    position: relative; /* Importante para que .BG se posicione correctamente */
+    overflow: hidden; /* Evita que elementos ocultos desborden */
+}
+
+.BG {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s;
+}
+
+/* Hace visible .BG cuando pasas el mouse sobre .product */
+.product:hover .BG {
+    opacity: 1;
+    visibility: visible;
+}
+
+
 
 .landing_page .product {
     display: flex;

@@ -132,3 +132,29 @@ document.addEventListener("DOMContentLoaded", () => {
         cartSidebar.classList.remove("active");
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const carritoButton = document.getElementById("carrito-button");
+    const cartSidebar = document.getElementById("cart-sidebar");
+    const closeCartButton = document.getElementById("close-cart");
+    const mainContent = document.querySelector("main"); // Selecciona el contenido principal
+    const header = document.querySelector("header"); // Selecciona el header
+    const footer = document.querySelector("footer"); // Selecciona el footer
+
+    // Abrir el carrito al hacer clic en el botón
+    carritoButton.addEventListener("click", () => {
+        cartSidebar.classList.add("active");
+        mainContent.classList.add("blur");
+        header.classList.add("blur");
+        footer.classList.add("blur");
+    });
+
+    // Cerrar el carrito al hacer clic en el botón de cierre
+    closeCartButton.addEventListener("click", () => {
+        cartSidebar.classList.remove("active");
+        mainContent.classList.remove("blur");
+        header.classList.remove("blur");
+        footer.classList.remove("blur");
+    });
+});

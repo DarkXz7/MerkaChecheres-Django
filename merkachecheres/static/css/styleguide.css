@@ -55,7 +55,7 @@
 .btn-register,.btn-facebook,.btn-google{
     font-family: var(--labels-font-family-regular);
 }
-.LOGIN,.olvidoButton,.btn-facebook,.btn-google{
+.LOGIN,.olvidoButton,.btn-facebook,.btn-google,.btn_text-4{
     padding: 10px 20px;
     border: none;
     border-radius: 15px;
@@ -64,8 +64,25 @@
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
+#textobotonfinal{
+    color: var(--color-negro);
+}
+.btn_text-4{
+    background-color: transparent;
+    color: var(--color-negro);
+    width: 100px;
+    height: 50px;
+}
 
-.LOGIN:hover,.olvidoButton:hover,.btn-facebook:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover,.dropdown:hover,.div:hover, .dropbtn:hover, #checkout:hover, #clear-cart:hover, .close-btn:hover{
+.butttons-secondary{
+    transition: background-color 15s ease-in-out, color 15s ease-in-out;
+}
+
+.butttons-secondary:hover{
+    background-color: var(--color-verde-hover);
+    
+}
+.LOGIN:hover,.olvidoButton:hover,.butttons-secondary:hover,.btn-facebook:hover,.btn_text-4:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover,.dropdown:hover,.div:hover, .dropbtn:hover, #checkout:hover, #clear-cart:hover, .close-btn:hover{
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     transform: scale(1.05);
     cursor: pointer;

@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+from django.contrib import admin
+from django.urls import path, include
 
 from pathlib import Path
 
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'merkachecheres',
+    'rest_framework'
    # "crispy_forms",
    # "crispy_bootstrap5", #Boostrap 5
 ]
@@ -61,10 +64,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'app_merkachecheres.urls'
 
+import os
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'merkachecheres/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,6 +81,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'app_merkachecheres.wsgi.application'
 
