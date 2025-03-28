@@ -75,14 +75,21 @@
 }
 
 .butttons-secondary{
-    transition: background-color 15s ease-in-out, color 15s ease-in-out;
+    background-color: var(--color-verde); /* Color original */
 }
-
 .butttons-secondary:hover{
-    background-color: var(--color-verde-hover);
+    background-color: #f3f1f1; /* Cambia el color al pasar el mouse */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Agrega sombra */
+    transform: scale(1.05); /* Escala el botón ligeramente */
     
 }
-.LOGIN:hover,.olvidoButton:hover,.butttons-secondary:hover,.btn-facebook:hover,.btn_text-4:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover,.dropdown:hover,.div:hover, .dropbtn:hover, #checkout:hover, #clear-cart:hover, .close-btn:hover{
+.btn_text-4:hover{
+    box-shadow: 0 2px 9px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.LOGIN:hover,.olvidoButton:hover,.butttons-secondary:hover,.btn-facebook:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover,.dropdown:hover,.div:hover, .dropbtn:hover, #checkout:hover, #clear-cart:hover, .close-btn:hover{
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     transform: scale(1.05);
     cursor: pointer;

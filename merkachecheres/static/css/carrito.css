@@ -1,23 +1,21 @@
 #cart-sidebar {
-    position: fixed;
-    right: -320px;
+    transform: translateX(100%); /* Mueve el carrito fuera de la pantalla */
+    transition: transform 0.3s ease-in-out;
+    position: fixed; /* Asegúrate de que sea fijo para que no afecte el flujo de la página */
+    right: 0;
     top: 0;
     width: 300px;
     height: 100%;
     background: white;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
     padding: 20px;
-    transition: right 0.3s ease-in-out;
-    position: absolute;
     z-index: 9999;
     font-family: var(--title-font-family-bold);
 }
 
 #cart-sidebar.active {
-    right: 0;
-    position: absolute;
+    transform: translateX(0); /* Mueve el carrito a la vista */
 }
-
 .cart-footer {
     margin-top: 20px;
     text-align: center;

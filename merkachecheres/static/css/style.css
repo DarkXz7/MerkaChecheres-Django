@@ -37,7 +37,13 @@
     
 }
 
-
+.landing_page{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    
+}
 /* 1. Barra de  navegacion */
 
 .landing_page .navigation {
@@ -912,6 +918,7 @@ main {
     height: auto;
     min-height: 100%;
     overflow: hidden;
+    padding-bottom: 28px;
 }
 
 .landing_page .left-contents {
@@ -1323,10 +1330,17 @@ main {
 /* 6. Footer */
 
 .landing_page .footer {
-    width: 100%;
     height: auto;
-    background-color: transparent;
+    background-color: transparent; /* Cambia el color si es necesario */
     position: relative;
+    margin: 0; /* Elimina márgenes que puedan afectar el ancho */
+
+    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+    margin-top: auto; /* Empuja el footer al final del contenedor */
+    width: 100%;
+    background-color: #e7decd;
+    padding-top: 20px;
+    box-sizing: border-box;
 }
 
 .landing_page .overlap-3 {
@@ -1337,6 +1351,7 @@ main {
 }
 
 .landing_page .frame-23 {
+    
     position: relative;
     display: flex;
     flex-direction: column;
@@ -1444,6 +1459,7 @@ main {
 }
 
 .landing_page .frame-28 {
+    
     display: flex;
     width: 80%;
     height: 191px;
@@ -1457,6 +1473,7 @@ main {
     box-shadow: 0px 4px 4px #00000040;
     position: absolute;
     top: 0;
+    
     left: 50%;
     transform: translateX(-50%);
 }
