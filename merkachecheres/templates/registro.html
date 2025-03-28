@@ -16,77 +16,35 @@
           onclick="window.location.href='{% url 'index' %}'">x</button>
           <div> 
               <h2 id="container-crear-cuenta">Crear una cuenta</h2>
-
           </div>
-        <form method="POST" action="{% url 'index' %}">
-          {% csrf_token %}
-          <div class="form-group">
-            <label for="full-name" id="fuente-registro">Nombre completo</label>
-            <input
-              type="text"
-              id="full-name"
-              name="full_name"
-              value="{{ form.full_name.value }}"
-            />
-            {% if form.full_name.errors %}
-            <p class="error-message">{{ form.full_name.errors }}</p>
-            {% endif %}
-          </div>
-          <div class="form-group">
-            <label for="email" id="fuente-registro">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value="{{ form.email.value }}"
-            />
-            {% if form.email.errors %}
-            <p class="error-message">{{ form.email.errors }}</p>
-            {% endif %}
-          </div>
-          <div class="form-group">
-            <label for="password" id="fuente-registro">Contraseña</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value="{{ form.password.value }}"
-            />
-            {% if form.password.errors %}
-            <p class="error-message">{{ form.password.errors }}</p>
-            {% endif %}
-          </div>
-          <div class="form-group">
-            <label for="confirm-password" id="fuente-registro">Confirmar Contraseña</label>
-            <input
-              type="password"
-              id="confirm-password"
-              name="confirm_password"
-              value="{{ form.confirm_password.value }}"
-            />
-            {% if form.confirm_password.errors %}
-            <p class="error-message">{{ form.confirm_password.errors }}</p>
-            {% endif %}
-          </div>
-          <div class="terms">
-            <input type="checkbox" id="terms" name="terms" />
-            <label for="terms" id="fuente-registro"
-              >Acepto los <a href="#">Términos de uso</a> y la
-              <a href="#">Política de privacidad</a></label
-            >
-            {% if form.terms.errors %}
-            <p class="error-message">{{ form.terms.errors }}</p>
-            {% endif %}
-          </div>
-          <div class="newsletter">
-            <input type="checkbox" id="newsletter" name="newsletter" />
-            <label for="newsletter" id="fuente-registro"
-              >Quiero recibir correos electrónicos sobre promociones y
-              actualizaciones.</label
-            >
-          </div>
-          <button type="submit" class="btn-register">Crear cuenta</button>
+          
+          <form method="POST" action="{% url 'registro' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="full-name">Nombre completo</label>
+                <input type="text" id="full-name" name="full_name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn-register">Crear cuenta</button>
         </form>
+        {% if messages %}
+          <ul>
+              {% for message in messages %}
+                  <li>{{ message }}</li>
+              {% endfor %}
+          </ul>
+      {% endif %} 
         <div class="social-login">
           <a href="" class="btn-facebook">Continuar con Facebook</a>
           <a href="" class="btn-google">Continuar con Google</a>
