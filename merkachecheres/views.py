@@ -82,8 +82,10 @@ def login(request):
 
 def admin_dashboard(request):
     return render(request, 'admin.html')
-
-
+def cliente_dashboard(request):
+    return render(request, 'cliente.html')
+def vendedor_dashboard(request):
+    return render(request, 'vendedor.html')
 
 
 def index(request):
