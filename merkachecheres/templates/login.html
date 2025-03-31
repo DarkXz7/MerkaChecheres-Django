@@ -16,7 +16,7 @@
             <button class="close-btn"
             onclick="window.location.href='{% url 'index' %}'">x</button>
             <h2>Iniciar Sesión</h2>
-            <form method="POST" action="{% url 'index' %}">
+            <form method="POST" action="{% url 'login' %}">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="email">Email</label>
@@ -37,7 +37,7 @@
                     {% endif %}
                 </div>
                 <div class="social-login">
-                    <button class="LOGIN">Iniciar Sesion</button>
+                    <button class="LOGIN" type="submit">Iniciar Sesion</button>
                 </div>
                 <div class="olvido-password">
                     <button class="olvidoButton">Olvide mi contraseña</button>
@@ -52,15 +52,13 @@
                     <span>O continúa con</span>
                     <hr>
                 </div>
-
-
                 <div class="social-login">
-
                     <button class="btn-facebook">Continuar con Facebook</button>
                     <button class="btn-google">Continuar con Google</button>
                     
                 </div>
             </form>
+        
         </div>
     </div>
 </body>

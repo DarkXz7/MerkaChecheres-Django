@@ -119,3 +119,38 @@
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s; 
 }
+.body_login{
+    
+    padding-bottom: 20px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mensaje {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin: 20px 0;
+    opacity: 1; /* Totalmente visible */
+    transition: opacity 1s ease; /* Transición suave de opacidad */
+}
+
+#mensaje.oculto {
+    opacity: 0; /* Totalmente invisible */
+}
+.olvido-password{
+    display: flex;
+    gap: 1.5rem;
+    
+    display: flex;
+}
+.olvidoButton{
+    white-space: nowrap;
+}
+.hidden {
+    display: none !important;
+}

@@ -1588,11 +1588,12 @@ main {
 }
 
 .login-container {
+    
     background-color: var(--color-blanco);
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0px 8px 40px 0px var(--color-sombra);
-    width: 350px;
+    width: 450px;
     position: relative;
 }
 
@@ -1747,6 +1748,7 @@ main {
 
 .register-container {
     display: flex;
+    
     justify-content: center;
     align-items: center;
     height: 100vh;
