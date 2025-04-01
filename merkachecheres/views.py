@@ -80,10 +80,16 @@ def login(request):
     return render(request, 'login.html')
 
 
+def logout(request):
+    # Elimina la sesión del usuario
+    request.session.flush()
+    messages.success(request, "Has cerrado sesión exitosamente.")
+    return redirect('index')
+
 def admin_dashboard(request):
     return render(request, 'admin.html')
-def cliente_dashboard(request):
-    return render(request, 'cliente.html')
+def cliente_dashboard(request):    
+    return render(request, 'index.html')
 def vendedor_dashboard(request):
     return render(request, 'vendedor.html')
 

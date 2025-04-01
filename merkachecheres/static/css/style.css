@@ -63,6 +63,7 @@
     display: flex;
     flex-direction: column;
     height: 108px;
+    
     position: relative;
 }
 
@@ -74,6 +75,8 @@
     flex-direction: column;
     height: 108px;
     position: relative;
+    
+    
 }
 
 .landing_page .middle_nav {
@@ -83,6 +86,7 @@
     gap: 20px;
     position: relative;
     align-self: stretch;
+    margin-right: 100px;
     
 }
 
@@ -325,7 +329,8 @@
 
 .landing_page .frame_2 {
     display: flex;
-    width: 400px;
+    width: fit-content;
+    
     align-items: center;
     gap: 24px;
     padding: 0px 5px;
@@ -369,11 +374,12 @@
 /* falta */
 .landing_page .icons {
     display: flex;
-    width: 100px;
+    width: fit-content;
     align-items: center;
     justify-content: center;
     gap: 20px;
     position: relative;
+    
 }
 
 .landing_page .shopping_cart_simple {
@@ -382,12 +388,15 @@
     height: 62px;
     margin-top: 10px;
 }
+.shopping_cart_simple3{
+    margin-top: 10px;
+}
 .landing_page .shopping_cart_simple2{
     position: relative;
     position: relative;
     width: 62px;
     height: 62px;
-    margin-top: 22px;
+    margin-top: 30px;
 } 
 #shoppingCar,#heartButton{
     width: 25px;
@@ -677,7 +686,11 @@ main {
     height: 55px;
 
 }
-
+.user-info{
+    background-color: #b6d09b;
+    width: fit-content;
+    margin-bottom: 20px;
+}
 .landing_page .rectangulo_4 {
     width: 320px;
     height: 40px;
