@@ -50,6 +50,7 @@ def registro(request):
             return render(request, 'registro.html')
     return render(request, 'registro.html')
         
+
 def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -86,8 +87,12 @@ def logout(request):
     messages.success(request, "Has cerrado sesión exitosamente.")
     return redirect('index')
 
+
 def admin_dashboard(request):
-    return render(request, 'admin.html')
+    usuarios = Usuario.objects.all()
+    
+    return render(request, 'admin.html', {'usuarios': usuarios})
+    
 def cliente_dashboard(request):    
     return render(request, 'index.html')
 def vendedor_dashboard(request):
