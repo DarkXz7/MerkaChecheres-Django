@@ -50,31 +50,47 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Formato de precio para pesos colombianos
     const precioInput = document.getElementById('precio');
+precioInput.type = "text"; 
 
-    precioInput.addEventListener('input', function () {
-        let value = this.value.replace(/[^0-9]/g, ''); // Solo números
-        if (value) {
-            value = new Intl.NumberFormat('es-CO').format(parseInt(value, 10)); // Formato colombiano
-        }
-        this.value = value;
-    });
-
-    precioInput.addEventListener('focus', function () {
-        this.setAttribute('data-placeholder', this.placeholder);
-        this.placeholder = '';
-    });
-
-    precioInput.addEventListener('blur', function () {
-        this.placeholder = this.getAttribute('data-placeholder');
-    });
+precioInput.addEventListener('input', function () {
+    let value = this.value.replace(/[^0-9]/g, ''); // Solo números
+    if (value.length > 10) {
+        value = value.slice(0, 10); // Evita que se excedan los 10 dígitos
+    }
+    this.value = value;
 });
-document.addEventListener('DOMContentLoaded', function () {
-    const cancelButton = document.querySelector('.cancel-btn');
 
-    cancelButton.addEventListener('click', function () {
-        const redirectUrl = this.getAttribute('data-url'); // Obtener la URL del botón
-        window.location.href = redirectUrl; // Redirigir al index
+// Convertir el precio antes de enviar el formulario
+document.querySelector('form').addEventListener('submit', function (event) {
+    let rawValue = precioInput.value.replace(/\./g, ''); // Eliminar puntos
+    if (!rawValue.match(/^\d+$/)) { // Validar que solo haya números
+        event.preventDefault();
+        alert('Ingrese un precio válido.');
+        return;
+    }
+    if (rawValue.length > 10) { // Máximo permitido
+        event.preventDefault();
+        alert('El precio no puede superar 99999999.99.');
+        return;
+    }
+    precioInput.value = (parseInt(rawValue) / 100).toFixed(2); // Formato decimal
+});
+
+
+    // Evitar que el usuario ingrese letras o caracteres inválidos
+    precioInput.addEventListener('keydown', function (event) {
+        if (!/^[0-9]$/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Delete' && event.key !== 'ArrowLeft' && event.key !== 'ArrowRight' && event.key !== 'Tab') {
+            event.preventDefault();
+        }
     });
+
+    // Funcionalidad del botón cancelar
+    const cancelButton = document.querySelector('.cancel-btn');
+    if (cancelButton) {
+        cancelButton.addEventListener('click', function () {
+            const redirectUrl = this.getAttribute('data-url') || '/'; // Redirigir al index
+            window.location.href = redirectUrl;
+        });
+    }
 });
