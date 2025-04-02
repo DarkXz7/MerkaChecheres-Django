@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Usuario
+from .models import Producto, ImagenProducto
 from django.contrib import messages
 
 def registro(request):
@@ -81,6 +82,44 @@ def login(request):
     return render(request, 'login.html')
 
 
+def publicar(request):
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        precio = request.POST.get('precio')
+        categoria = request.POST.get('categoria')
+        descripcion = request.POST.get('descripcion')
+        imagenes = request.FILES.getlist('imagen')  # Capturar múltiples imágenes
+
+        if not titulo or not precio or not categoria or not descripcion:
+            messages.error(request, "Todos los campos son obligatorios.")
+            return render(request, 'publicarArticulo.html')
+
+        try:
+            categoria = int(categoria)
+            producto = Producto(
+                titulo=titulo,
+                precio=precio,
+                categoria=categoria,
+                descripcion=descripcion
+            )
+            producto.save()
+
+            # Guardar las imágenes relacionadas
+            for imagen in imagenes:
+                ImagenProducto.objects.create(producto=producto, imagen=imagen)
+
+            messages.success(request, "Producto publicado exitosamente.")
+            return redirect('index')  # Redirigir al índice después de guardar
+        except Exception as e:
+            messages.error(request, f"Error al guardar el producto: {e}")
+            return render(request, 'publicarArticulo.html')
+
+    return render(request, 'publicarArticulo.html')
+
+
+
+
+
 def logout(request):
     # Elimina la sesión del usuario
     request.session.flush()
@@ -88,9 +127,9 @@ def logout(request):
     return redirect('index')
 
 
+
 def admin_dashboard(request):
     usuarios = Usuario.objects.all()
-    
     return render(request, 'admin.html', {'usuarios': usuarios})
     
 def cliente_dashboard(request):    

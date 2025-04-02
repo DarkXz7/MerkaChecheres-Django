@@ -231,3 +231,7 @@
     border: none;
     background-color: transparent;
 }
+
+.vender_button_div{
+    display: flex;
+}

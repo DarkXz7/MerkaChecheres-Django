@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicar en Marketplace</title>
+    <link rel="stylesheet" href="{% static 'css/styleArticulo.css' %}">
+    
+</head>
+<body>
+    <div class="container">
+        <h2>Publicar un artículo en Marketplace</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="imagen">Subir imágenes (máx. 12)</label>
+            <input type="file" id="imagen" name="imagen" multiple accept="image/*">
+            <div class="preview-container" id="preview-container">
+                <!-- Previsualización de imágenes -->
+            </div>
+            <label for="titulo">Título del artículo</label>
+            <input type="text" id="titulo" name="titulo" placeholder="Bolígrafo Negro Marca Sharpee" required>
+
+            <label for="precio">Precio ($)</label>
+            <input type="number" id="precio" name="precio" placeholder="Ejemplo: 100.000" required>
+
+            <label for="categoria">Categoría</label>
+            <select id="categoria" name="categoria" required>
+                <option value="1">Muebles</option>
+                <option value="2">Electrónica</option>
+                <option value="3">Ropa y Accesorios</option>
+                <option value="4">Hogar y Jardín</option>
+            </select>
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" name="descripcion" placeholder="Agrega una descripción detallada" required></textarea>
+            <button type="submit">Publicar</button>
+        </form>
+    </div>
+    <script src="{% static 'js/vendedor.js' %}"></script>
+</body>
+</html>

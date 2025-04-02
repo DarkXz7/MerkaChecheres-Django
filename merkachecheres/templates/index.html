@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/styleguide.css' %}">
     <link rel="stylesheet" href="{% static 'css/carrito.css' %}">
+    
 </head>
 <body>
     <div class="landing_page">
@@ -51,13 +52,21 @@
                                         {% if not request.session.validar %}
                                             <button class="button_text_wrapper"
                                                 onclick="window.location.href='{% url 'registro' %}'">Crear Cuenta</button>
-                                            
-                                                
                                         {% endif %}
                                     </div>
                                     
                                 </div>
                                 <div class="icons">
+                                    {% if request.session.validar %}
+                                        <div class="vender_button_div" >
+                                            <button class="vender-button" id="" onclick="window.location.href='{% url 'publicar' %}'">
+                                                vender
+                                            </button>
+                                            <div class="vender-icon">
+                                                <img src="{% static 'img/cuenta.png' %}" id="heartButton" alt="Usuario">
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                     <div class="shopping_cart_simple">
                                         <button class="dropbtn">
                                             <img src="{% static 'img/heart.png' %}" id="heartButton" alt="Inicio">
@@ -80,6 +89,7 @@
                                             </button>
                                         {% endif %}
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>

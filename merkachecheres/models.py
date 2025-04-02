@@ -17,3 +17,28 @@ class Usuario(models.Model):
     
     def __str__(self):
         return self.username
+
+
+class Producto(models.Model):
+    titulo = models.CharField(max_length=255)
+    precio = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    categoria = (
+        (1, "Muebles"),
+        (2, "Electrónica"),
+        (3, "Ropa y Accesorios"),
+        (4, "Hogar y Jardín")
+    )
+    categoria = models.IntegerField(choices=categoria, default=0)
+    descripcion = models.TextField()
+    fecha_publicacion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.titulo
+
+
+class ImagenProducto(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='imagenes')
+    imagen = models.ImageField(upload_to='productos/imagenes/')
+
+    def __str__(self):
+        return f"Imagen de {self.producto.titulo}"
