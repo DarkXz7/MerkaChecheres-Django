@@ -1031,6 +1031,8 @@ main {
 }
 
 .product {
+    
+    padding: 0; /* Elimina cualquier padding interno */
     position: relative; /* Importante para que .BG se posicione correctamente */
     overflow: hidden; /* Evita que elementos ocultos desborden */
 }
@@ -1058,12 +1060,14 @@ main {
 
 .landing_page .product {
     display: flex;
+    padding: 0;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 4px;
-    width: 234px;
-    height: 328px;
+    max-width: 100%; /* La imagen no excederá el ancho del contenedor */
+    max-height: 100%; /* La imagen no excederá la altura del contenedor */
+    object-fit: contain;
     position: relative;
     border-radius: 6px;
     overflow: hidden;
@@ -1115,14 +1119,25 @@ main {
 
 .landing_page .product_image {
     position: relative;
-    box-shadow: 0px 4px 4px #00000040;
-    width: 194px;
+    width: 100%;
     height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     border-radius: 6px;
-    background-size: cover;
-    background-position: 50% 50%;
+    margin: 0; /* Elimina cualquier margen */
+    
 }
 
+.landing_page .product_image img {
+    max-width: 100%; /* La imagen no excederá el ancho del contenedor */
+    max-height: 100%; /* La imagen no excederá la altura del contenedor */
+    object-fit: contain; /* Asegura que la imagen mantenga sus proporciones */
+    display: block; /* Elimina el espacio en blanco adicional alrededor de las imágenes */
+    margin: auto; /* Asegura que las imágenes pequeñas se centren */
+    border-radius: 6px; /* Opcional: bordes redondeados */
+}
 .landing_page .img_4,
 .landing_page .img_10 {
     position: absolute;
@@ -1130,16 +1145,28 @@ main {
     left: 20px;
 }
 
-.landing_page .content,
-.landing_page .content-2 {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 234px;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 4px;
-    overflow: hidden;
+.landing_page .precio {
+    display: flex; /* Habilita el modelo de caja flexible */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    text-align: center; /* Centra el texto dentro del contenedor */
+    width: 100%; /* Asegura que ocupe todo el ancho del contenedor */
+    margin: 0; /* Elimina cualquier margen externo */
+    padding: 0; /* Elimina cualquier padding interno */
+    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+}
+
+.landing_page .content {
+    display: flex; /* Habilita el modelo de caja flexible */
+    flex-direction: column; /* Coloca los elementos en una columna */
+    justify-content: center; /* Centra los elementos verticalmente */
+    align-items: center; /* Centra los elementos horizontalmente */
+    text-align: center; /* Centra el texto dentro de los elementos */
+    gap: 12px; /* Añade espacio entre los elementos internos */
+    padding: 16px; /* Añade espacio interno alrededor de los elementos */
+    margin: 0; /* Elimina cualquier margen externo */
+    width: 100%; /* Asegura que ocupe todo el ancho del contenedor */
+    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
 }
 
 .landing_page .content-2 {
@@ -1150,8 +1177,10 @@ main {
 
 .landing_page .frame-22 {
     display: flex;
-    width: 104px;
-    height: 16px;
+    max-width: 100%; /* La imagen no excederá el ancho del contenedor */
+    max-height: 100%; /* La imagen no excederá la altura del contenedor */
+    object-fit: contain;
+    justify-content: center;
     align-items: center;
     gap: 4px;
     position: relative;
@@ -1160,29 +1189,24 @@ main {
 
 .landing_page .text_wrapper-8 {
     position: relative;
-    width: 30px;
-    height: 12px;
-    margin-top: -1px;
+    width: 100%; /* Asegura que el texto ocupe el ancho del contenedor */
     font-family: "Roboto-Regular", Helvetica;
-    font-weight: 400;
-    color: #a7a7a5;
-    font-size: 12px;
+    font-weight: 550;
+    font-size: 14px;
     letter-spacing: 0;
     line-height: normal;
-    white-space: nowrap;
+    white-space: nowrap; /* Evita que el texto se envuelva */
+    overflow: hidden; /* Oculta el texto que exceda el contenedor */
+    text-overflow: ellipsis; /* Añade puntos suspensivos al texto truncado */
+    text-align: center; /* Centra el texto dentro del contenedor */
 }
 
 .landing_page .text_wrapper-9 {
     position: relative;
-    width: 234px;
-    height: 33px;
-    margin-right: -8px;
     font-family: "Roboto-Regular", Helvetica;
     font-weight: 400;
     color: #545353;
     font-size: 10px;
-    letter-spacing: 0;
-    line-height: 20px;
 }
 
 .landing_page .precio {

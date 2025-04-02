@@ -154,7 +154,8 @@ def vendedor_dashboard(request):
 
 
 def index(request):
-    return render(request, "index.html")
+    productos = Producto.objects.order_by('?')[:5]  # Obtiene los 5 primeros productos
+    return render(request, "index.html", {'productos': productos})
 
 def adminlogin(request):
     return render(request, "adminlogin.html")

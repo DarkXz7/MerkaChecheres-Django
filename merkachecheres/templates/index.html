@@ -230,126 +230,28 @@
                         </div>
                     </div>
                     <div class="contenedor-productos">
-                        
-                    
+                        {% for producto in productos %}
                         <div class="product">
-                            <div class="product_image img_3"></div>
+                            <div class="product_image">
+                                {% for imagen in producto.imagenes.all %}
+                                <img src="{{ imagen.imagen.url }}" alt="{{ producto.titulo }}">
+                                {% endfor %}
+                            </div>
                             <div class="content">
                                 <div class="frame-22">
-                                    <img src="{% static 'img/Star.png' %}" alt="">
-                                    <div class="text_wrapper-8">(876)</div>
+                                    <div class="text_wrapper-8">{{ producto.titulo }}</div>
                                 </div>
-                                <p class="text_wrapper-9">Portable Washing Machine, 11lbs capacity Model 18NMF...</p>
-                                <div class="precio">
-                                    <div class="text_wrapper-10">250.000</div>
-                                </div>
-                            </div>
-                            <div class="BG">
-                                <div class="btn_primary-5">
-                                    <div class="img_wrapper"><img class="group" src="{% static 'img/Shopping.png' %}" /></div>
-                                    <div class="btn_text-6">Añadir al carrito</div>
-                                </div>
-                                <div class="btn_primary-6">
-                                    <div class="img_wrapper"><img class="heart" src="{% static 'img/heart2.png' %}" /></div>
-                                    <button class="button">Like</button>
-                                </div>
-                                <div class="btn_primary-7">
-                                    <img class="img_wrapper" src="{% static 'img/share.png' %}" />
-                                    <button class="button">Share</button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="product">
-                            <div class="product_image img_3"></div>
-                            <div class="content">
-                                <div class="frame-22">
-                                    <img src="{% static 'img/Star.png' %}" alt="">
-                                    <div class="text_wrapper-8">(876)</div>
-                                </div>
-                                <p class="text_wrapper-9">Portable Washing Machine, 11lbs capacity Model 18NMF...</p>
-                                <div class="precio">
-                                    <div class="text_wrapper-10">250.000</div>
-                                </div>
-                            </div>
-                            <div class="BG">
-                                <div class="btn_primary-5">
-                                    <div class="img_wrapper"><img class="group" src="{% static 'img/Shopping.png' %}" /></div>
-                                    <div class="btn_text-6">Añadir al carrito</div>
-                                </div>
-                                <div class="btn_primary-6">
-                                    <div class="img_wrapper"><img class="heart" src="{% static 'img/heart2.png' %}" /></div>
-                                    <button class="button">Like</button>
-                                </div>
-                                <div class="btn_primary-7">
-                                    <img class="img_wrapper" src="{% static 'img/share.png' %}" />
-                                    <button class="button">Share</button>
-                                </div>
-                            </div>
-                        </div>
+                                <div>
+                                    <p class="text_wrapper-9">{{ producto.descripcion }}</p>
 
-                        <div class="product">
-                            <div class="product_image img_3"></div>
-                            <div class="content">
-                                <div class="frame-22">
-                                    <img src="{% static 'img/Star.png' %}" alt="">
-                                    <div class="text_wrapper-8">(876)</div>
                                 </div>
-                                <p class="text_wrapper-9">Portable Washing Machine, 11lbs capacity Model 18NMF...</p>
                                 <div class="precio">
-                                    <div class="text_wrapper-10">250.000</div>
-                                </div>
-                            </div>
-                            <div class="BG">
-                                <div class="btn_primary-5">
-                                    <div class="img_wrapper"><img class="group" src="{% static 'img/Shopping.png' %}" /></div>
-                                    <div class="btn_text-6">Añadir al carrito</div>
-                                </div>
-                                <div class="btn_primary-6">
-                                    <div class="img_wrapper"><img class="heart" src="{% static 'img/heart2.png' %}" /></div>
-                                    <button class="button">Like</button>
-                                </div>
-                                <div class="btn_primary-7">
-                                    <img class="img_wrapper" src="{% static 'img/share.png' %}" />
-                                    <button class="button">Share</button>
+                                    <div class="text_wrapper-10">${{ producto.precio }}</div>
                                 </div>
                             </div>
                         </div>
-                    
-                        <div class="product">
-                            <div class="product_image img_5"></div>
-                            <div class="content">
-                                <div class="frame-22">
-                                    <img src="{% static 'img/Star.png' %}" alt="">
-                                    <div class="text_wrapper-8">(876)</div>
-                                </div>
-                                <p class="text_wrapper-9">Portable Washing Machine, 11lbs capacity Model 18NMF...</p>
-                                <div class="precio">
-                                    <div class="text_wrapper-10">250.000</div>
-                                </div>
-                            </div>
-                            <div class="BG">
-                                <div class="btn_primary-5">
-                                    <div class="img_wrapper"><img class="group" src="{% static 'img/Shopping.png' %}" /></div>
-                                    <div class="btn_text-6">Añadir al carrito</div>
-                                </div>
-                                <div class="btn_primary-6">
-                                    <div class="img_wrapper"><img class="heart" src="{% static 'img/heart2.png' %}" /></div>
-                                    <button class="button">Like</button>
-                                </div>
-                                <div class="btn_primary-7">
-                                    <img class="img_wrapper" src="{% static 'img/share.png' %}" />
-                                    <button class="button">Share</button>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
-                    
-                    <div class="left-contents">
-                            <button class="btn_text-4" id="textobotonfinal">Explorar todos los productos</button>
-                    </div>
-                    
-                    
                 </div>
             </section>
         </main>       
