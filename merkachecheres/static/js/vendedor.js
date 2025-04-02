@@ -51,32 +51,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const precioInput = document.getElementById('precio');
-precioInput.type = "text"; 
+    precioInput.type = "text";
 
-precioInput.addEventListener('input', function () {
-    let value = this.value.replace(/[^0-9]/g, ''); // Solo números
-    if (value.length > 10) {
-        value = value.slice(0, 10); // Evita que se excedan los 10 dígitos
-    }
-    this.value = value;
-});
+    precioInput.addEventListener('input', function () {
+        let value = this.value.replace(/[^0-9]/g, ''); // Solo números
+        if (value.length > 10) {
+            value = value.slice(0, 10); // Evita que se excedan los 10 dígitos
+        }
+        if (value) {
+            let intValue = parseInt(value, 10);
+            this.value = (intValue / 100).toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+    });
 
-// Convertir el precio antes de enviar el formulario
-document.querySelector('form').addEventListener('submit', function (event) {
-    let rawValue = precioInput.value.replace(/\./g, ''); // Eliminar puntos
-    if (!rawValue.match(/^\d+$/)) { // Validar que solo haya números
-        event.preventDefault();
-        alert('Ingrese un precio válido.');
-        return;
-    }
-    if (rawValue.length > 10) { // Máximo permitido
-        event.preventDefault();
-        alert('El precio no puede superar 99999999.99.');
-        return;
-    }
-    precioInput.value = (parseInt(rawValue) / 100).toFixed(2); // Formato decimal
-});
-
+    // Convertir el precio antes de enviar el formulario
+    document.querySelector('form').addEventListener('submit', function (event) {
+        let rawValue = precioInput.value.replace(/[^0-9]/g, ''); // Eliminar caracteres no numéricos
+        if (!rawValue.match(/^\d+$/)) {
+            event.preventDefault();
+            alert('Ingrese un precio válido.');
+            return;
+        }
+        if (rawValue.length > 10) {
+            event.preventDefault();
+            alert('El precio no puede superar 99999999.99.');
+            return;
+        }
+        precioInput.value = (parseInt(rawValue) / 100).toFixed(2); // Formato decimal antes de enviar
+    });
 
     // Evitar que el usuario ingrese letras o caracteres inválidos
     precioInput.addEventListener('keydown', function (event) {

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Usuario
 from .models import Producto, ImagenProducto
 from django.contrib import messages
+from decimal import Decimal, InvalidOperation
 
 def registro(request):
     if request.method == 'POST':
@@ -95,7 +96,19 @@ def publicar(request):
             return render(request, 'publicarArticulo.html')
 
         try:
+            # Convertir categoría a entero
             categoria = int(categoria)
+
+            # Formatear el precio eliminando caracteres no numéricos
+            precio = precio.replace(',', '').replace('.', '')  # Quita separadores
+            precio = Decimal(precio) / 100  # Divide entre 100 para obtener 2 decimales
+
+            # Validar que el precio no sea muy grande
+            if precio > Decimal('99999999.99'):
+                messages.error(request, "El precio no puede superar 99,999,999.99.")
+                return render(request, 'publicarArticulo.html')
+
+            # Guardar producto
             producto = Producto(
                 titulo=titulo,
                 precio=precio,
@@ -110,14 +123,16 @@ def publicar(request):
 
             messages.success(request, "Producto publicado exitosamente.")
             return redirect('index')  # Redirigir al índice después de guardar
+
+        except InvalidOperation:
+            messages.error(request, "Error: Ingrese un precio válido.")
+            return render(request, 'publicarArticulo.html')
+
         except Exception as e:
             messages.error(request, f"Error al guardar el producto: {e}")
             return render(request, 'publicarArticulo.html')
 
     return render(request, 'publicarArticulo.html')
-
-
-
 
 
 def logout(request):
