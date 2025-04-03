@@ -916,14 +916,14 @@ main {
 
 /* 5. Explorar nuestros productos */
 
-.landing_page .explorar-productos {
+.explorar-productos {
     display: flex;
     flex-direction: column;
-    /* width: 100%; */
     align-items: center;
-    gap: 40px;
-    padding: 10px;
-    position: relative;
+    justify-content: flex-start;
+    padding: 20px;
+    min-height: 400px; /* Establece un tamaño mínimo para evitar que se haga demasiado pequeño */
+    
 }
 
 /* corregir */
@@ -1004,11 +1004,13 @@ main {
     line-height: normal;
 }
 
-.landing_page .contenedor-productos {
-    align-items: center;
+.contenedor-productos {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 21px 43px;
-    padding: 10px;
+    gap: 20px;
+    width: 100%;
+    min-height: 300px; /* Asegura un tamaño mínimo para el contenedor de productos */
 }
 
 .landing_page .contenedor-productos,
@@ -1029,6 +1031,9 @@ main {
     filter: blur(5px);
     pointer-events: none; /* Evita la interacción con los elementos desenfocados */
 }
+
+
+
 
 .product {
     
@@ -1067,7 +1072,7 @@ main {
     padding: 4px;
     max-width: 100%; /* La imagen no excederá el ancho del contenedor */
     max-height: 100%; /* La imagen no excederá la altura del contenedor */
-    object-fit: contain;
+    
     position: relative;
     border-radius: 6px;
     overflow: hidden;
@@ -1129,7 +1134,9 @@ main {
     margin: 0; /* Elimina cualquier margen */
     
 }
-
+.min-width-class {
+    min-width: 500px; /* Ajusta este valor según sea necesario */
+}
 .landing_page .product_image img {
     max-width: 100%; /* La imagen no excederá el ancho del contenedor */
     max-height: 100%; /* La imagen no excederá la altura del contenedor */
@@ -1144,6 +1151,66 @@ main {
     top: 4px;
     left: 20px;
 }
+
+
+
+
+.product_image {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 200px;
+}
+
+.product-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.product-img.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.carousel-prev, .carousel-next {
+    position: absolute;
+    top: 50%; /* Centra los botones verticalmente */
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    z-index: 2;
+}
+
+.carousel-prev {
+    left: 10px; /* Posiciona el botón izquierdo */
+}
+
+.carousel-next {
+    right: 10px; /* Posiciona el botón derecho */
+}
+
+.carousel-prev:hover, .carousel-next:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+
+
 
 .landing_page .precio {
     display: flex; /* Habilita el modelo de caja flexible */

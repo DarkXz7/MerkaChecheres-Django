@@ -58,7 +58,6 @@ def login(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        # Verificar si el usuario existe en la base de datos
         try:
             usuario = Usuario.objects.get(email=email, password=password)
             # Crear una sesión para el usuario
@@ -72,12 +71,11 @@ def login(request):
             if usuario.rol == 1:  # Admin
                 return redirect('admin_dashboard')
             elif usuario.rol == 2:  # Cliente
-                return redirect('cliente_dashboard')
+                return redirect('index')  # Redirige a la vista `index`
             elif usuario.rol == 3:  # Vendedor
                 return redirect('vendedor_dashboard')
 
         except Usuario.DoesNotExist:
-            # Si el usuario no existe, mostrar un mensaje de error
             messages.error(request, "Correo electrónico o contraseña incorrectos.")
             return render(request, 'login.html')
     return render(request, 'login.html')
@@ -153,9 +151,20 @@ def vendedor_dashboard(request):
     return render(request, 'vendedor.html')
 
 
+
 def index(request):
-    productos = Producto.objects.order_by('?')[:5]  # Obtiene los 5 primeros productos
-    return render(request, "index.html", {'productos': productos})
+    # Obtén todos los productos disponibles
+    
+    productos = Producto.objects.order_by('?')[:5] 
+    
+    # Verifica si hay una sesión activa
+    sesion_activa = request.session.get('validar', None)
+    
+    return render(request, "index.html", {
+        'productos': productos,
+        'productos_count': productos.count(),
+        
+    })
 
 def adminlogin(request):
     return render(request, "adminlogin.html")

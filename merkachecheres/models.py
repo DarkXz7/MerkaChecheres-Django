@@ -28,6 +28,7 @@ class Producto(models.Model):
         (3, "Ropa y Accesorios"),
         (4, "Hogar y Jardín")
     )
+    
     categoria = models.IntegerField(choices=categoria, default=0)
     descripcion = models.TextField()
     fecha_publicacion = models.DateTimeField(auto_now_add=True)

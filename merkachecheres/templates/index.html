@@ -222,36 +222,53 @@
                     </div>
                 </div>
             </section>
+            
             <section class="explorar-productos">
                 <div class="productos">
-                    <div class="heading_3">
+                    <div class="heading_3 {% if productos_count < 3 %}min-width-class{% endif %}">
                         <div class="overlap_2">
                             <div class="rectangulo_5 text_wrapper-11">Explora nuestros productos</div>
                         </div>
                     </div>
+                    
                     <div class="contenedor-productos">
-                        {% for producto in productos %}
-                        <div class="product">
-                            <div class="product_image">
-                                {% for imagen in producto.imagenes.all %}
-                                <img src="{{ imagen.imagen.url }}" alt="{{ producto.titulo }}">
-                                {% endfor %}
+                        {% if productos %}
+                            {% for producto in productos %}
+                            <div class="product">
+                                <div class="product_image">
+                                    {% for imagen in producto.imagenes.all %}
+                                    <img src="{{ imagen.imagen.url }}" alt="{{ producto.titulo }}" 
+                                        class="product-img {% if forloop.first %}active{% endif %}">
+                                    {% endfor %}
+                                
+                                    {% if producto.imagenes.count > 1 %}
+                                    <!-- Controles del carrusel -->
+                                    <button class="carousel-prev" onclick="prevSlide({{ forloop.counter }})">‹</button>
+                                    <button class="carousel-next" onclick="nextSlide({{ forloop.counter }})">›</button>
+                                    {% endif %}
+                                </div>
+                            
+                                <div class="content">
+                                    <div class="frame-22">
+                                        <div class="text_wrapper-8">{{ producto.titulo }}</div>
+                                    </div>
+                                    <div>
+                                        <p class="text_wrapper-9">{{ producto.descripcion }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text_wrapper-9">{{ producto.get_categoria_display }}</p>
+                                    </div>
+                                    <div class="precio">
+                                        <div class="text_wrapper-10">${{ producto.precio }}</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="content">
-                                <div class="frame-22">
-                                    <div class="text_wrapper-8">{{ producto.titulo }}</div>
-                                </div>
-                                <div>
-                                    <p class="text_wrapper-9">{{ producto.descripcion }}</p>
-
-                                </div>
-                                <div class="precio">
-                                    <div class="text_wrapper-10">${{ producto.precio }}</div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
+                            {% endfor %}
+                        {% else %}
+                            <p>No hay productos disponibles.</p>
+                        {% endif %}
                     </div>
+                    
                 </div>
             </section>
         </main>       
@@ -317,5 +334,6 @@
     <script src="{% static 'js/carrito-sidebar.js' %}"></script>
     <script src="{% static 'js/slider.js' %}"></script>
     <script src="{% static 'js/user-sidebar.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
 </body>
 </html>
