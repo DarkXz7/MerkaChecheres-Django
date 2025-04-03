@@ -88,6 +88,16 @@ def publicar(request):
         categoria = request.POST.get('categoria')
         descripcion = request.POST.get('descripcion')
         imagenes = request.FILES.getlist('imagen')  # Capturar múltiples imágenes
+        print(f"Imágenes recibidas: {len(imagenes)}")  # Depuración
+        marca = request.POST.get('marca')
+        descuento = request.POST.get('descuento')
+        dimensiones = request.POST.get('dimensiones')
+        stock = request.POST.get('Stock')
+
+        # Validar que no se suban más de 5 imágenes
+        if len(imagenes) > 5:
+            messages.error(request, "Solo puedes subir un máximo de 5 imágenes.")
+            return render(request, 'publicarArticulo.html')
 
         if not titulo or not precio or not categoria or not descripcion:
             messages.error(request, "Todos los campos son obligatorios.")
@@ -101,9 +111,25 @@ def publicar(request):
             precio = precio.replace(',', '').replace('.', '')  # Quita separadores
             precio = Decimal(precio) / 100  # Divide entre 100 para obtener 2 decimales
 
+            # Procesar el descuento para eliminar el símbolo '%'
+            if descuento:
+                descuento = descuento.replace('%', '').strip()  # Eliminar el símbolo '%'
+                descuento = Decimal(descuento)  # Convertir a número
+
             # Validar que el precio no sea muy grande
             if precio > Decimal('99999999.99'):
                 messages.error(request, "El precio no puede superar 99,999,999.99.")
+                return render(request, 'publicarArticulo.html')
+
+            # Validar stock
+            if not stock:
+                messages.error(request, "El campo Stock es obligatorio.")
+                return render(request, 'publicarArticulo.html')
+
+            try:
+                stock = int(stock)  # Convertir a entero
+            except ValueError:
+                messages.error(request, "El campo Stock debe ser un número válido.")
                 return render(request, 'publicarArticulo.html')
 
             # Guardar producto
@@ -111,7 +137,11 @@ def publicar(request):
                 titulo=titulo,
                 precio=precio,
                 categoria=categoria,
-                descripcion=descripcion
+                descripcion=descripcion,
+                marca=marca,
+                descuento=descuento,
+                dimensiones=dimensiones,
+                stock=stock 
             )
             producto.save()
 
@@ -150,6 +180,35 @@ def cliente_dashboard(request):
 def vendedor_dashboard(request):
     return render(request, 'vendedor.html')
 
+def producto(request, producto_id):
+    try:
+        # Buscar el producto por su ID
+        producto = Producto.objects.get(id=producto_id)
+        imagenes = producto.imagenes.all()  # Obtener las imágenes relacionadas
+    except Producto.DoesNotExist:
+        # Si el producto no existe, redirigir al índice con un mensaje de error
+        messages.error(request, "El producto no existe.")
+        return redirect('index')
+
+    return render(request, 'producto.html', {
+        'producto': producto,
+        'imagenes': imagenes,
+    })
+
+def producto_view(request):
+    # Example context data
+    context = {
+        'producto': {
+            'titulo': 'Sample Product',
+        },
+        'imagenes': [],  # Add your image data here
+    }
+    return render(request, 'producto.html', context)
+
+
+def detalle_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    return render(request, 'producto.html', {'producto': producto})
 
 
 def index(request):

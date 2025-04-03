@@ -48,6 +48,7 @@
                                                 onclick="window.location.href='{% url 'login' %}'">Iniciar Sesión</button>
                                         {% endif %}
                                     </div>
+                                    
                                     <div class="btn_registro">
                                         {% if not request.session.validar %}
                                             <button class="button_text_wrapper"
@@ -234,7 +235,7 @@
                     <div class="contenedor-productos">
                         {% if productos %}
                             {% for producto in productos %}
-                            <div class="product">
+                            <d  iv class="product">
                                 <div class="product_image">
                                     {% for imagen in producto.imagenes.all %}
                                     <img src="{{ imagen.imagen.url }}" alt="{{ producto.titulo }}" 
@@ -251,6 +252,7 @@
                                 <div class="content">
                                     <div class="frame-22">
                                         <div class="text_wrapper-8">{{ producto.titulo }}</div>
+                                        
                                     </div>
                                     <div>
                                         <p class="text_wrapper-9">{{ producto.descripcion }}</p>
@@ -261,8 +263,14 @@
                                     <div class="precio">
                                         <div class="text_wrapper-10">${{ producto.precio }}</div>
                                     </div>
+                                    
+                                    <div>
+                                        
+                                        <button class="btn-ver-producto" onclick="window.location.href='{% url 'producto' producto.id %}'">Ver Producto</button>
+                                        
+                                    </div>
                                 </div>
-                            </div>
+                            </d>
                             {% endfor %}
                         {% else %}
                             <p>No hay productos disponibles.</p>

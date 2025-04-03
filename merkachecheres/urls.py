@@ -11,7 +11,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('login/', views.login, name='login'),
     path('publicar/', views.publicar, name='publicar'),
-    
+    path('producto/<int:producto_id>/', views.producto, name='producto'),
+    path('producto/', views.producto, name='producto'),
     path('logout/', views.logout, name='logout'),
     path('registro/', views.registro, name='registro'),
     path('completardatos/', views.completardatos, name='completardatos'),

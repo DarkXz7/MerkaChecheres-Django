@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fileInput.addEventListener('change', function (event) {
         const files = event.target.files;
         const placeholders = document.querySelectorAll('.placeholder');
-
+    
         Array.from(files).forEach((file, index) => {
             if (index >= placeholders.length) return; // No exceder el límite de 12 imágenes
             const reader = new FileReader();
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 img.style.width = '100%';
                 img.style.height = '100%';
                 img.style.objectFit = 'cover';
-
+    
                 const removeBtn = document.createElement('button');
                 removeBtn.textContent = 'X';
                 removeBtn.classList.add('remove-btn');
@@ -42,11 +42,36 @@ document.addEventListener('DOMContentLoaded', function () {
                     imgContainer.classList.remove('image-container');
                     imgContainer.classList.add('placeholder');
                 };
-
+    
                 imgContainer.appendChild(img);
                 imgContainer.appendChild(removeBtn);
             };
             reader.readAsDataURL(file);
+        });
+    });
+
+
+    removeBtn.onclick = function (event) {
+        event.stopPropagation();
+        imgContainer.innerHTML = '+';
+        imgContainer.classList.remove('image-container');
+        imgContainer.classList.add('placeholder');
+    
+        // Reiniciar el campo de entrada para reflejar los cambios
+        const dataTransfer = new DataTransfer();
+        Array.from(fileInput.files).forEach((file, i) => {
+            if (i !== index) {
+                dataTransfer.items.add(file);
+            }
+        });
+        fileInput.files = dataTransfer.files;
+    };
+
+    document.querySelector('form').addEventListener('submit', function (event) {
+        const files = fileInput.files;
+        console.log(`Archivos enviados: ${files.length}`);
+        Array.from(files).forEach((file, index) => {
+            console.log(`Archivo ${index + 1}: ${file.name}`);
         });
     });
 
