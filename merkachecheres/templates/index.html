@@ -59,17 +59,15 @@
                                 <div class="icons">
                                     {% if request.session.validar %}
                                         <div class="vender_button_div" >
-                                            <button class="vender-button" id="" onclick="window.location.href='{% url 'publicar' %}'">
-                                                vender
+                                            <button class="vender-button" id="venderTexto" onclick="window.location.href='{% url 'publicar' %}'">
+                                                Vender 
+                                                    <img src="{% static 'img/vender.png' %}" id="heartButton" alt="Usuario">
                                             </button>
-                                            <div class="vender-icon">
-                                                <img src="{% static 'img/cuenta.png' %}" id="heartButton" alt="Usuario">
-                                            </div>
                                         </div>
                                     {% endif %}
                                     <div class="shopping_cart_simple">
                                         <button class="dropbtn">
-                                            <img src="{% static 'img/heart.png' %}" id="heartButton" alt="Inicio">
+                                            <img src="{% static 'img/Heart.png' %}" id="heartButton" alt="Inicio">
                                         </button>
                                     </div>
                                     <div class="shopping_cart_simple2">
@@ -85,7 +83,7 @@
                                     <div class="shopping_cart_simple3">
                                         {% if request.session.validar %}
                                             <button class="user-slider-button" id="user-button">
-                                                <img src="{% static 'img/cuenta.png' %}" id="heartButton" alt="Usuario">
+                                                <img src="{% static 'img/Vector.png' %}" id="heartButton" alt="Usuario">
                                             </button>
                                         {% endif %}
                                     </div>

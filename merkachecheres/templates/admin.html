@@ -8,9 +8,90 @@
     <title>Listar Usuario - Admin</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/styleAdmin.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/styleguide.css' %}">
 </head>
 <body>
+    <header>
+        <div class="navigation">
+            <div class="navigation_wrapper">
+                <div class="middle_nav_wrapper">
+                    <div class="middle_nav">
+                        <div class="logo">
+                            <div class="text_wrapper">MERKACHECHERES</div>
+                        </div>
+                        <div class="frame">
+                            <div class="div_wrapper">
+                                <div class="div">
+                                    <button class="dropbtn " onclick="window.location.href='{% url 'index' %}'">Inicio</button>
+                                </div>
+                            </div>
+                            <div class="btn_primary_wrapper">
+                                <button class="dropbtn">Categorías</button>
+                            </div>        
+                            <div class="div_wrapper">
+                                <div class="div">
+                                    <button class="dropbtn">Catalogo</button>
+                                </div>
+                            </div>
+                            </div>
+                        <div class="buscar">
+                            <input type="password" id="password" name="password" placeholder="Buscar algo.." class="navbar">
+                        </div>
+                        <div class="frame_2">
+                            <div class="iniciar_crear_cuenta">
+                                <div class="btn_login"> 
+                                    {% if not request.session.validar %}
+                                        <button class="button_text_wrapper"
+                                            onclick="window.location.href='{% url 'login' %}'">Iniciar Sesión</button>
+                                    {% endif %}
+                                </div>
+                                <div class="btn_registro">
+                                    {% if not request.session.validar %}
+                                        <button class="button_text_wrapper"
+                                            onclick="window.location.href='{% url 'registro' %}'">Crear Cuenta</button>
+                                    {% endif %}
+                                </div>
+                                
+                            </div>
+                            <div class="icons">
+                                {% if request.session.validar %}
+                                    <div class="vender_button_div" >
+                                        <button class="vender-button" id="venderTexto" onclick="window.location.href='{% url 'publicar' %}'">
+                                            Vender 
+                                                <img src="{% static 'img/vender.png' %}" id="heartButton" alt="Usuario">
+                                        </button>
+                                    </div>
+                                {% endif %}
+                                <div class="shopping_cart_simple">
+                                    <button class="dropbtn">
+                                        <img src="{% static 'img/Heart.png' %}" id="heartButton" alt="Inicio">
+                                    </button>
+                                </div>
+                                <div class="shopping_cart_simple2">
+                                    <div class="overlap_group">
+                                        <button class="dropbtn" id="carrito-button">
+                                            <img src="{% static 'img/Shopping.png' %}" id="shoppingCar" alt="Inicio">
+                                        </button>                                            
+                                        <div class="frame_3">
+                                            <div class="text_wrapper_3">2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="shopping_cart_simple3">
+                                    {% if request.session.validar %}
+                                        <button class="user-slider-button" id="user-button">
+                                            <img src="{% static 'img/Vector.png' %}" id="heartButton" alt="Usuario">
+                                        </button>
+                                    {% endif %}
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
     <main class="mainGeneralContainer">
         <aside class="asideAdmin">
             <div class="adminContainer">
@@ -94,8 +175,8 @@
                                 <td>{{ usuario.full_name }}</td>
                                 <td>{{ usuario.password }}</td>
                                 <td>{{ usuario.email }}</td>
-                                <td>{{ usuario.username }}</td> <!-- Puedes reemplazar con otro campo si es necesario -->
-                                <td>{{ usuario.get_rol_display }}</td> <!-- Muestra el nombre del rol -->
+                                <td>{{ usuario.username }}</td> 
+                                <td>{{ usuario.get_rol_display }}</td> 
                                 <td>
                                     <button class="buttons">Editar</button>
                                     <button class="buttons">Eliminar</button>
@@ -133,7 +214,7 @@
             </section>
         </div>
     </main>
-    <script src="/app.js"></script>
+    <script src="{% static 'js/user-sidebar.js' %}"></script>
     
 </body>
 </html>
