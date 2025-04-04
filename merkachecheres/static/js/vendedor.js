@@ -80,3 +80,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Resto de tu código para manejo de precios...
 });
+

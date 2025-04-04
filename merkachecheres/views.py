@@ -3,6 +3,7 @@ from .models import Usuario
 from .models import Producto, ImagenProducto
 from django.contrib import messages
 from decimal import Decimal, InvalidOperation
+from django.http import JsonResponse
 
 def registro(request):
     if request.method == 'POST':
@@ -81,59 +82,87 @@ def login(request):
     return render(request, 'login.html')
 
 
+from decimal import Decimal, InvalidOperation
+import re
+
 def publicar(request):
     if request.method == 'POST':
-        print(f"Número de imágenes recibidas: {len(request.FILES.getlist('imagen'))}")  # Debug
-        for img in request.FILES.getlist('imagen'):
-            print(f"Imagen: {img.name} - Tamaño: {img.size} bytes")
-
-            
         titulo = request.POST.get('titulo')
         precio = request.POST.get('precio')
         categoria = request.POST.get('categoria')
         descripcion = request.POST.get('descripcion')
-        imagenes = request.FILES.getlist('imagen')  # Obtener todas las imágenes
+        imagenes = request.FILES.getlist('imagen')  # Capturar múltiples imágenes
         marca = request.POST.get('marca')
         descuento = request.POST.get('descuento')
         dimensiones = request.POST.get('dimensiones')
-        stock = request.POST.get('Stock')
-        
-        # Validaciones básicas
-        if not all([titulo, precio, categoria, descripcion, stock]):
-            messages.error(request, "Todos los campos obligatorios deben estar completos.")
+        stock = request.POST.get('Stock')  # Obtener el valor de stock del formulario
+
+        # Validar que no se suban más de 12 imágenes
+        if len(imagenes) > 12:
+            messages.error(request, "Solo puedes subir un máximo de 12 imágenes.")
+
+        # Validar campos obligatorios
+        if not titulo:
+            messages.error(request, "El campo 'Título' es obligatorio.")
+        if not precio:
+            messages.error(request, "El campo 'Precio' es obligatorio.")
+        if not categoria:
+            messages.error(request, "El campo 'Categoría' es obligatorio.")
+        if not descripcion:
+            messages.error(request, "El campo 'Descripción' es obligatorio.")
+        if not stock:
+            messages.error(request, "El campo 'Stock' es obligatorio.")
+
+        # Si hay errores, no continuar
+        if len(list(messages.get_messages(request))) > 0:
             return render(request, 'publicarArticulo.html')
 
         try:
-            # Procesar precio
+            # Convertir categoría a entero
+            categoria = int(categoria)
+
+            # Convertir precio a Decimal
             precio = Decimal(precio.replace(',', '').replace('.', '')) / 100
-            
-            # Procesar descuento si existe
-            descuento_value = None
+
+            # Procesar descuento (si existe)
             if descuento:
-                descuento_value = Decimal(descuento.replace('%', '').strip())
-            
-            # Crear el producto
+                descuento = Decimal(descuento.replace('%', '').strip())
+
+            # Validar y convertir stock a entero
+            try:
+                stock = int(stock)
+                if stock < 0:
+                    raise ValueError("El stock no puede ser negativo.")
+            except ValueError:
+                messages.error(request, "El campo Stock debe ser un número entero válido.")
+                return render(request, 'publicarArticulo.html')
+
+            # Guardar producto
             producto = Producto(
                 titulo=titulo,
                 precio=precio,
-                categoria=int(categoria),
+                categoria=categoria,
                 descripcion=descripcion,
                 marca=marca,
-                descuento=descuento_value,
+                descuento=descuento,
                 dimensiones=dimensiones,
-                stock=int(stock)
+                stock=stock  # Asignar el valor de stock
             )
             producto.save()
 
-            # Guardar CADA imagen
+            # Guardar las imágenes relacionadas
             for imagen in imagenes:
                 ImagenProducto.objects.create(producto=producto, imagen=imagen)
 
-            messages.success(request, "Producto publicado exitosamente con todas las imágenes.")
-            return redirect('index')
+            messages.success(request, "Producto publicado exitosamente.")
+            return render(request, 'publicarArticulo.html', {'redirect': True})
+
+        except InvalidOperation:
+            messages.error(request, "Error: Ingrese un precio válido.")
+            return render(request, 'publicarArticulo.html')
 
         except Exception as e:
-            messages.error(request, f"Error al publicar el producto: {str(e)}")
+            messages.error(request, f"Error al guardar el producto: {e}")
             return render(request, 'publicarArticulo.html')
 
     return render(request, 'publicarArticulo.html')

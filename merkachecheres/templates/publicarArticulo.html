@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/styleArticulo.css' %}">
 </head>
 <body>
+    
     <div class="container">
         <h2>Publicar un artículo en Marketplace</h2>
         <form method="POST" enctype="multipart/form-data" id="product-form">
@@ -24,7 +25,7 @@
                 </div>
 
                 <label for="titulo">Título del artículo</label>
-                <input type="text" id="titulo" name="titulo" placeholder="Bolígrafo Negro Marca Sharpie" required>
+                <input type="text" id="titulo" name="titulo" placeholder="Bolígrafo Negro Marca Sharpie" >
 
                 <label for="marca">Marca</label>
                 <input type="text" id="marca" name="marca" placeholder="Ejemplo: Samsung">
@@ -36,13 +37,14 @@
                 <input type="text" id="dimensiones" name="dimensiones" placeholder="Ejemplo: 30x20x15 cm">
 
                 <label for="Stock">Stock</label>
-                <input type="text" id="Stock" name="Stock" placeholder="Que cantidad quieres vender?">
+                <input type="number" id="Stock" name="Stock" min="0"  
+                placeholder="Ejemplo: 10" value="1">
 
                 <label for="precio">Precio</label>
-                <input type="text" id="precio" name="precio" placeholder="Agrega un precio, por ejemplo: 100.000" required>
+                <input type="text" id="precio" name="precio" placeholder="Agrega un precio, por ejemplo: 100.000" >
 
                 <label for="categoria">Categoría</label>
-                <select id="categoria" name="categoria" required>
+                <select id="categoria" name="categoria" >
                     <option value="1">Muebles</option>
                     <option value="2">Electrónica</option>
                     <option value="3">Ropa y Accesorios</option>
@@ -50,16 +52,52 @@
                 </select>
 
                 <label for="descripcion">Descripción</label>
-                <textarea id="descripcion" name="descripcion" placeholder="Agrega una descripción detallada" required></textarea>
+                <textarea id="descripcion" name="descripcion" placeholder="Agrega una descripción detallada"></textarea>
             </div>
 
             <div class="button-group">
                 <button type="submit" class="publish-btn">Publicar</button>
                 <button type="button" class="cancel-btn" data-url="{% url 'index' %}">Cancelar</button>
             </div>
+            
+        
         </form>
-    </div>
 
+        {% if messages %}
+                <div id="message-container">
+                    {% for message in messages %}
+                        {% if message.tags == "success" %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+                        {% elif message.tags == "error" %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+    </div>
+    
+    <script>
+        // Redirigir al índice después de mostrar el mensaje
+        // Detectar si hay un mensaje de éxito
+        const messageContainer = document.getElementById('message-container');
+        if (messageContainer) {
+            const successMessage = messageContainer.querySelector('.alert-success');
+            if (successMessage) {
+                // Redirigir al índice después de 3 segundos
+                setTimeout(() => {
+                    window.location.href = "{% url 'index' %}";
+                }, 2000); // 3000 ms = 3 segundos
+            }
+        }
+    </script>
     <script src="{% static 'js/vendedor.js' %}"></script>
 </body>
 </html>

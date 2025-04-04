@@ -7,6 +7,31 @@ body {
     height: 100vh;
     margin: 0;
 }
+
+#message-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    width: auto;
+    max-width: 300px;
+    transition: opacity 0.5s ease; /* Transición para desvanecer */
+}
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+.alert {
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #28a745; /* Verde para éxito */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}
+
+
 .container {
     background: white;
     padding: 25px;
