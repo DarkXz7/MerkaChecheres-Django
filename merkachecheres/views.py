@@ -83,81 +83,57 @@ def login(request):
 
 def publicar(request):
     if request.method == 'POST':
+        print(f"Número de imágenes recibidas: {len(request.FILES.getlist('imagen'))}")  # Debug
+        for img in request.FILES.getlist('imagen'):
+            print(f"Imagen: {img.name} - Tamaño: {img.size} bytes")
+
+            
         titulo = request.POST.get('titulo')
         precio = request.POST.get('precio')
         categoria = request.POST.get('categoria')
         descripcion = request.POST.get('descripcion')
-        imagenes = request.FILES.getlist('imagen')  # Capturar múltiples imágenes
-        print(f"Imágenes recibidas: {len(imagenes)}")  # Depuración
+        imagenes = request.FILES.getlist('imagen')  # Obtener todas las imágenes
         marca = request.POST.get('marca')
         descuento = request.POST.get('descuento')
         dimensiones = request.POST.get('dimensiones')
         stock = request.POST.get('Stock')
-
-        # Validar que no se suban más de 5 imágenes
-        if len(imagenes) > 5:
-            messages.error(request, "Solo puedes subir un máximo de 5 imágenes.")
-            return render(request, 'publicarArticulo.html')
-
-        if not titulo or not precio or not categoria or not descripcion:
-            messages.error(request, "Todos los campos son obligatorios.")
+        
+        # Validaciones básicas
+        if not all([titulo, precio, categoria, descripcion, stock]):
+            messages.error(request, "Todos los campos obligatorios deben estar completos.")
             return render(request, 'publicarArticulo.html')
 
         try:
-            # Convertir categoría a entero
-            categoria = int(categoria)
-
-            # Formatear el precio eliminando caracteres no numéricos
-            precio = precio.replace(',', '').replace('.', '')  # Quita separadores
-            precio = Decimal(precio) / 100  # Divide entre 100 para obtener 2 decimales
-
-            # Procesar el descuento para eliminar el símbolo '%'
+            # Procesar precio
+            precio = Decimal(precio.replace(',', '').replace('.', '')) / 100
+            
+            # Procesar descuento si existe
+            descuento_value = None
             if descuento:
-                descuento = descuento.replace('%', '').strip()  # Eliminar el símbolo '%'
-                descuento = Decimal(descuento)  # Convertir a número
-
-            # Validar que el precio no sea muy grande
-            if precio > Decimal('99999999.99'):
-                messages.error(request, "El precio no puede superar 99,999,999.99.")
-                return render(request, 'publicarArticulo.html')
-
-            # Validar stock
-            if not stock:
-                messages.error(request, "El campo Stock es obligatorio.")
-                return render(request, 'publicarArticulo.html')
-
-            try:
-                stock = int(stock)  # Convertir a entero
-            except ValueError:
-                messages.error(request, "El campo Stock debe ser un número válido.")
-                return render(request, 'publicarArticulo.html')
-
-            # Guardar producto
+                descuento_value = Decimal(descuento.replace('%', '').strip())
+            
+            # Crear el producto
             producto = Producto(
                 titulo=titulo,
                 precio=precio,
-                categoria=categoria,
+                categoria=int(categoria),
                 descripcion=descripcion,
                 marca=marca,
-                descuento=descuento,
+                descuento=descuento_value,
                 dimensiones=dimensiones,
-                stock=stock 
+                stock=int(stock)
             )
             producto.save()
 
-            # Guardar las imágenes relacionadas
+            # Guardar CADA imagen
             for imagen in imagenes:
                 ImagenProducto.objects.create(producto=producto, imagen=imagen)
 
-            messages.success(request, "Producto publicado exitosamente.")
-            return redirect('index')  # Redirigir al índice después de guardar
-
-        except InvalidOperation:
-            messages.error(request, "Error: Ingrese un precio válido.")
-            return render(request, 'publicarArticulo.html')
+            messages.success(request, "Producto publicado exitosamente con todas las imágenes.")
+            return redirect('index')
 
         except Exception as e:
-            messages.error(request, f"Error al guardar el producto: {e}")
+            messages.error(request, f"Error al publicar el producto: {str(e)}")
             return render(request, 'publicarArticulo.html')
 
     return render(request, 'publicarArticulo.html')

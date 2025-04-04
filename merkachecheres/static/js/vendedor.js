@@ -1,123 +1,82 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const fileInput = document.getElementById('imagen');
     const previewContainer = document.getElementById('preview-container');
+    const form = document.querySelector('form');
+    let filesArray = [];
 
-    // Inicializar 12 espacios con el signo "+"
-    previewContainer.innerHTML = '';
-    for (let i = 0; i < 12; i++) {
-        const placeholder = document.createElement('div');
-        placeholder.textContent = '+';
-        placeholder.classList.add('placeholder');
-        placeholder.onclick = function () {
-            fileInput.click();
-        };
-        previewContainer.appendChild(placeholder);
+    // Inicializar placeholders
+    function initPlaceholders() {
+        previewContainer.innerHTML = '';
+        for (let i = 0; i < 12; i++) {
+            const placeholder = document.createElement('div');
+            placeholder.className = 'placeholder';
+            placeholder.innerHTML = '+';
+            placeholder.onclick = () => fileInput.click();
+            previewContainer.appendChild(placeholder);
+        }
     }
 
-    fileInput.addEventListener('change', function (event) {
-        const files = event.target.files;
-        const placeholders = document.querySelectorAll('.placeholder');
-    
-        Array.from(files).forEach((file, index) => {
-            if (index >= placeholders.length) return; // No exceder el límite de 12 imágenes
+    // Actualizar el input file con los archivos seleccionados
+    function updateFileInput() {
+        const dataTransfer = new DataTransfer();
+        filesArray.forEach(file => dataTransfer.items.add(file));
+        fileInput.files = dataTransfer.files;
+    }
+
+    // Mostrar previsualizaciones
+    function displayPreviews() {
+        initPlaceholders();
+        const placeholders = previewContainer.querySelectorAll('.placeholder');
+        
+        filesArray.forEach((file, index) => {
+            if (index >= 12) return;
+            
             const reader = new FileReader();
-            reader.onload = function (e) {
-                const imgContainer = placeholders[index];
-                imgContainer.innerHTML = '';
-                imgContainer.classList.remove('placeholder');
-                imgContainer.classList.add('image-container');
+            reader.onload = function(e) {
+                const placeholder = placeholders[index];
+                placeholder.className = 'image-container';
+                placeholder.innerHTML = `
+                    <img src="${e.target.result}" alt="Preview">
+                    <button type="button" class="remove-btn" data-index="${index}">X</button>
+                `;
                 
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'cover';
-    
-                const removeBtn = document.createElement('button');
-                removeBtn.textContent = 'X';
-                removeBtn.classList.add('remove-btn');
-                removeBtn.onclick = function (event) {
-                    event.stopPropagation();
-                    imgContainer.innerHTML = '+';
-                    imgContainer.classList.remove('image-container');
-                    imgContainer.classList.add('placeholder');
-                };
-    
-                imgContainer.appendChild(img);
-                imgContainer.appendChild(removeBtn);
+                placeholder.querySelector('.remove-btn').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    filesArray.splice(index, 1);
+                    updateFileInput();
+                    displayPreviews();
+                });
             };
             reader.readAsDataURL(file);
         });
-    });
-
-
-    removeBtn.onclick = function (event) {
-        event.stopPropagation();
-        imgContainer.innerHTML = '+';
-        imgContainer.classList.remove('image-container');
-        imgContainer.classList.add('placeholder');
-    
-        // Reiniciar el campo de entrada para reflejar los cambios
-        const dataTransfer = new DataTransfer();
-        Array.from(fileInput.files).forEach((file, i) => {
-            if (i !== index) {
-                dataTransfer.items.add(file);
-            }
-        });
-        fileInput.files = dataTransfer.files;
-    };
-
-    document.querySelector('form').addEventListener('submit', function (event) {
-        const files = fileInput.files;
-        console.log(`Archivos enviados: ${files.length}`);
-        Array.from(files).forEach((file, index) => {
-            console.log(`Archivo ${index + 1}: ${file.name}`);
-        });
-    });
-
-    const precioInput = document.getElementById('precio');
-    precioInput.type = "text";
-
-    precioInput.addEventListener('input', function () {
-        let value = this.value.replace(/[^0-9]/g, ''); // Solo números
-        if (value.length > 10) {
-            value = value.slice(0, 10); // Evita que se excedan los 10 dígitos
-        }
-        if (value) {
-            let intValue = parseInt(value, 10);
-            this.value = (intValue / 100).toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
-    });
-
-    // Convertir el precio antes de enviar el formulario
-    document.querySelector('form').addEventListener('submit', function (event) {
-        let rawValue = precioInput.value.replace(/[^0-9]/g, ''); // Eliminar caracteres no numéricos
-        if (!rawValue.match(/^\d+$/)) {
-            event.preventDefault();
-            alert('Ingrese un precio válido.');
-            return;
-        }
-        if (rawValue.length > 10) {
-            event.preventDefault();
-            alert('El precio no puede superar 99999999.99.');
-            return;
-        }
-        precioInput.value = (parseInt(rawValue) / 100).toFixed(2); // Formato decimal antes de enviar
-    });
-
-    // Evitar que el usuario ingrese letras o caracteres inválidos
-    precioInput.addEventListener('keydown', function (event) {
-        if (!/^[0-9]$/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Delete' && event.key !== 'ArrowLeft' && event.key !== 'ArrowRight' && event.key !== 'Tab') {
-            event.preventDefault();
-        }
-    });
-
-    // Funcionalidad del botón cancelar
-    const cancelButton = document.querySelector('.cancel-btn');
-    if (cancelButton) {
-        cancelButton.addEventListener('click', function () {
-            const redirectUrl = this.getAttribute('data-url') || '/'; // Redirigir al index
-            window.location.href = redirectUrl;
-        });
     }
+
+    // Manejar selección de archivos
+    fileInput.addEventListener('change', function(e) {
+        const newFiles = Array.from(e.target.files);
+        if (filesArray.length + newFiles.length > 12) {
+            alert('Máximo 12 imágenes permitidas');
+            return;
+        }
+        filesArray = filesArray.concat(newFiles);
+        updateFileInput();
+        displayPreviews();
+    });
+
+    // Asegurar que se envíen todos los archivos
+    form.addEventListener('submit', function(e) {
+        updateFileInput(); // Actualizar por última vez antes de enviar
+        
+        // Verificar que hay archivos para enviar
+        if (fileInput.files.length !== filesArray.length) {
+            e.preventDefault();
+            alert('Error al preparar los archivos. Intente nuevamente.');
+            return;
+        }
+    });
+
+    // Inicializar
+    initPlaceholders();
+
+    // Resto de tu código para manejo de precios...
 });

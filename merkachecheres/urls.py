@@ -19,8 +19,4 @@ urlpatterns = [
     path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('cliente_dashboard/', views.cliente_dashboard, name='cliente_dashboard'),
 
-] 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

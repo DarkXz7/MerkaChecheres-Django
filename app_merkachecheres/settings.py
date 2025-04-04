@@ -84,8 +84,12 @@ TEMPLATES = [
 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Tamaño máximo de archivo (20MB)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20971520  # 20MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 20971520  # 20MB
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
