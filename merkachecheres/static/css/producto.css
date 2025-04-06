@@ -86,7 +86,6 @@ body {
     flex-grow: 1;
     max-width: 500px;
     margin: 0 1rem;
-    left: -100px; /* Mueve derecha/izquierda */
     position: relative;
   }
   
@@ -142,8 +141,16 @@ body {
   .icons img:hover {
     transform: scale(1.1);
   }
-  
-  /* Contador del carrito */
+
+
+  .botonComprar{
+    margin-top: auto;
+    background-color: #92B869;
+    color: #FFF;
+    padding: 13px 60px;
+    border-radius: 30px;
+    border: solid 1px #000  ;
+  }
   .overlap_group {
     position: relative;
   }
@@ -242,8 +249,9 @@ body {
     background-color: var(--color-verde);
     cursor: pointer;
     border: solid 1px #000;
-    padding: 10px 20px;
-    border-radius: 20px;
+    padding: 13px 20px;
+    border-radius: 30px;
+    margin-top: auto;
 }
 .sectionMainGeneralContainer{
     display: flex;
@@ -546,7 +554,7 @@ gap: 35px;
 
 }
 #cantidadText{
-    color: var(--Negro, #000);
+color: var(--Negro, #000);
 font-family: var(--font-family-labels, Roboto);
 font-size: 16px;
 font-style: normal;
@@ -561,29 +569,6 @@ line-height: normal;
     justify-content: center;
     align-items: center;
 }
-.ButtonContainerGeneral{
-
-    white-space: nowrap;
-    width: 240px;
-    height: 52px;
-    padding: 16px 54px;
-    
-    gap: var(--font-size-size-xs, 12px);
-    flex-shrink: 0;
-    border-radius: 62px;
-    border: 0.5px solid var(--gris-border-35, rgba(102, 102, 102, 0.35));
-    background: var(--Verde, #92B869);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.75);
-}
-#comprarText{
-    color: var(--Blanco, #FFF);
-font-family: var(--font-family-labels, Roboto);
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-}
-
 
 /*Carrito boton*/
 .carritoContainerGeneral{
