@@ -7,7 +7,8 @@ class Usuario(models.Model):
     full_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, unique=True)
-    password = models.CharField(max_length=128)
+    password = models.CharField(max_length=128)  # Elimina la coma aquí
+    reset_token = models.CharField(max_length=64, null=True, blank=True)  # También elimina la coma aquí
     ROLES = (
         (1, "Admin"),
         (2, "Cliente"),
