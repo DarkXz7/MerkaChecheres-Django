@@ -13,7 +13,14 @@ def registro(request):
         email = request.POST.get('email')
         username = request.POST.get('username')
         password = request.POST.get('password')
-
+        telefono = request.POST.get('telefono')
+        departamento = request.POST.get('departamento')
+        direccion = request.POST.get('direccion')
+        municipio = request.POST.get('municipio', 'Sin municipio')
+        ciudad = request.POST.get('ciudad')
+        
+        
+        
         # Validar que los campos no estén vacíos
         if not full_name or not email or not username or not password:
             messages.error(request, "Todos los campos son obligatorios.")
@@ -30,7 +37,17 @@ def registro(request):
 
         # Crear el usuario y guardarlo en la base de datos
         try:
-            usuario = Usuario(full_name=full_name, email=email, username=username, password=password)
+            usuario = Usuario(
+                full_name=full_name,
+                email=email, 
+                username=username, 
+                password=password,
+                telefono=telefono, 
+                departamento=departamento, 
+                direccion=direccion, 
+                municipio=municipio, 
+                ciudad=ciudad
+                )
             usuario.save()
             messages.success(request, "Cuenta creada exitosamente.")
             
