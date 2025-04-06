@@ -1741,6 +1741,7 @@ main {
     align-items: center;
     height: 100vh;
     margin: 0;
+    background: #efe9de;
 }
 
 .login-container {
@@ -1901,50 +1902,58 @@ main {
 }
 
 /* Registro */
+.body-register {
+    background: #efe9de;
+}
 
 .register-container {
     display: flex;
-    
     justify-content: center;
     align-items: center;
     height: 100vh;
     background-color: var(--color-blanco);
     padding: 8px;
 }
-.container-crear-cuenta{
+
+.container-crear-cuenta {
     margin-bottom: 10px;
 }
+
 .register-box {
     font-family: "Roboto", Helvetica;
-    width: 320px;
-    padding: 10px;
+    width: 420px; 
+    padding: 24px 20px 20px;
     background-color: var(--color-blanco);
     box-shadow: 0px 8px 40px 0px var(--color-sombra);
-    border-radius: 8px;
-    
+    border-radius: 12px;
     position: relative;
+}
+
+.register-container{
+    background:#efe9de ;
 }
 
 .register-container .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
     background: none;
     border: none;
-    font-size: var(--labels-font-size-16);
+    font-size: 20px;
     color: var(--color-gris);
-    top: -14px;
-    right: -297px;
-    position: relative;
     cursor: pointer;
-
+    z-index: 2;
 }
 
 .register-box h2 {
     text-align: center;
     font-size: var(--labels-font-size-22);
     color: var(--color-negro);
+    margin-bottom: 20px;
 }
 
 .form-group {
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 }
 
 .form-group label {
@@ -1953,6 +1962,7 @@ main {
     color: var(--color-negro);
     margin-bottom: 5px;
 }
+
 
 .form-group input[type="text"],
 .form-group input[type="email"],

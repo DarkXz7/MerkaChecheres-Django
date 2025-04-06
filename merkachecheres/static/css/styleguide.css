@@ -51,6 +51,8 @@
 }
 .olvidoButton{
     background-color: transparent;
+    text-decoration: none;
+    color: #000;
 }
 .btn-register,.btn-facebook,.btn-google{
     font-family: var(--labels-font-family-regular);
