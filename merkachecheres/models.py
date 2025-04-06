@@ -8,7 +8,6 @@ class Usuario(models.Model):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, unique=True)
     password = models.CharField(max_length=128) 
-    reset_token = models.CharField(max_length=64, null=True, blank=True)  
     telefono = models.CharField(max_length=15, default="Sin teléfono")  # Valor por defecto
     departamento = models.CharField(max_length=100, default="Sin departamento")  # Valor por defecto
     direccion = models.CharField(max_length=255, default="Sin dirección")  # Valor por defecto

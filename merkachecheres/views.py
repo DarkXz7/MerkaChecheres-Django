@@ -4,7 +4,8 @@ from .models import Producto, ImagenProducto
 from django.contrib import messages
 from decimal import Decimal, InvalidOperation
 from django.http import JsonResponse
-
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.hashers import make_password
 from django.utils.crypto import get_random_string
 
 def registro(request):
@@ -194,46 +195,52 @@ def solicitar_cambio_contrasena(request):
         # Verificar si el correo existe en la base de datos
         try:
             usuario = Usuario.objects.get(email=email)
-            # Generar un token único para el restablecimiento
-            token = get_random_string(length=32)
-            usuario.reset_token = token
-            usuario.save()
-
-            # Redirigir al formulario de restablecimiento de contraseña
-            return redirect('restablecer_contrasena', token=token)
-
+            # Guardar el email en la sesión para usarlo en la siguiente vista
+            request.session['email_para_cambio'] = email
+            messages.success(request, "Correo verificado. Ahora puedes restablecer tu contraseña.")
+            return redirect('restablecer_contrasena')  # Redirige al formulario de restablecimiento
         except Usuario.DoesNotExist:
             messages.error(request, "El correo electrónico no está registrado.")
             return render(request, 'solicitar_cambio_contrasena.html')
 
     return render(request, 'solicitar_cambio_contrasena.html')
 
-def restablecer_contrasena(request, token):
+
+def restablecer_contrasena(request):
+    # Verificar si el email está en la sesión
+    email = request.session.get('email_para_cambio')
+    if not email:
+        messages.error(request, "No se ha verificado ningún correo electrónico.")
+        return redirect('solicitar_cambio_contrasena')
+
     try:
-        usuario = Usuario.objects.get(reset_token=token)
+        usuario = Usuario.objects.get(email=email)
 
         if request.method == 'POST':
             nueva_contrasena = request.POST.get('password')
             confirmar_contrasena = request.POST.get('confirm_password')
 
+            # Validar que las contraseñas coincidan
             if nueva_contrasena != confirmar_contrasena:
                 messages.error(request, "Las contraseñas no coinciden.")
-                return render(request, 'restablecer_contrasena.html', {'token': token})
+                return render(request, 'restablecer_contrasena.html')
 
             # Actualizar la contraseña del usuario
-            usuario.password = nueva_contrasena
-            usuario.reset_token = None  # Eliminar el token después de usarlo
+            usuario.password = (nueva_contrasena)  # Encripta la contraseña
             usuario.save()
+
+            # Eliminar el email de la sesión
+            del request.session['email_para_cambio']
 
             # Mostrar mensaje de éxito y redirigir al login
             messages.success(request, "Tu contraseña ha sido restablecida exitosamente. Ahora puedes iniciar sesión.")
             return redirect('login')
 
-        return render(request, 'restablecer_contrasena.html', {'token': token})
+        return render(request, 'restablecer_contrasena.html')
 
     except Usuario.DoesNotExist:
-        messages.error(request, "El enlace de restablecimiento no es válido o ha expirado.")
-        return redirect('login')
+        messages.error(request, "El correo electrónico no es válido.")
+        return redirect('solicitar_cambio_contrasena')
 
 
 
