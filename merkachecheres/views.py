@@ -5,6 +5,8 @@ from django.contrib import messages
 from decimal import Decimal, InvalidOperation
 from django.http import JsonResponse
 
+from django.utils.crypto import get_random_string
+
 def registro(request):
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
@@ -166,6 +168,56 @@ def publicar(request):
             return render(request, 'publicarArticulo.html')
 
     return render(request, 'publicarArticulo.html')
+
+
+def solicitar_cambio_contrasena(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+
+        # Verificar si el correo existe en la base de datos
+        try:
+            usuario = Usuario.objects.get(email=email)
+            # Generar un token único para el restablecimiento
+            token = get_random_string(length=32)
+            usuario.reset_token = token
+            usuario.save()
+
+            # Redirigir al formulario de restablecimiento de contraseña
+            return redirect('restablecer_contrasena', token=token)
+
+        except Usuario.DoesNotExist:
+            messages.error(request, "El correo electrónico no está registrado.")
+            return render(request, 'solicitar_cambio_contrasena.html')
+
+    return render(request, 'solicitar_cambio_contrasena.html')
+
+def restablecer_contrasena(request, token):
+    try:
+        usuario = Usuario.objects.get(reset_token=token)
+
+        if request.method == 'POST':
+            nueva_contrasena = request.POST.get('password')
+            confirmar_contrasena = request.POST.get('confirm_password')
+
+            if nueva_contrasena != confirmar_contrasena:
+                messages.error(request, "Las contraseñas no coinciden.")
+                return render(request, 'restablecer_contrasena.html', {'token': token})
+
+            # Actualizar la contraseña del usuario
+            usuario.password = nueva_contrasena
+            usuario.reset_token = None  # Eliminar el token después de usarlo
+            usuario.save()
+
+            # Mostrar mensaje de éxito y redirigir al login
+            messages.success(request, "Tu contraseña ha sido restablecida exitosamente. Ahora puedes iniciar sesión.")
+            return redirect('login')
+
+        return render(request, 'restablecer_contrasena.html', {'token': token})
+
+    except Usuario.DoesNotExist:
+        messages.error(request, "El enlace de restablecimiento no es válido o ha expirado.")
+        return redirect('login')
+
 
 
 def logout(request):

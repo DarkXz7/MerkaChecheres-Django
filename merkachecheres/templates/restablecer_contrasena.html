@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restablecer Contraseña</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Restablecer Contraseña</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="password">Nueva Contraseña</label>
+            <input type="password" id="password" name="password" placeholder="Nueva contraseña" required>
+            <label for="confirm_password">Confirmar Contraseña</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirma tu contraseña" required>
+            <button type="submit">Restablecer Contraseña</button>
+        </form>
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <p class="alert {{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

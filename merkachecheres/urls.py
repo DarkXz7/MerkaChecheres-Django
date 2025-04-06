@@ -18,5 +18,6 @@ urlpatterns = [
     path('completardatos/', views.completardatos, name='completardatos'),
     path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('cliente_dashboard/', views.cliente_dashboard, name='cliente_dashboard'),
-
+    path('cambio-contrasena/', views.solicitar_cambio_contrasena, name='solicitar_cambio_contrasena'),
+    path('restablecer-contrasena/<str:token>/', views.restablecer_contrasena, name='restablecer_contrasena'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
