@@ -365,6 +365,13 @@
     position: relative;
     flex: 0 0 auto;
 }
+.btn-ver-producto,.carritoText{
+    background-color: var(--color-verde);
+    cursor: pointer;
+    border: solid 1px #000;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
 
 .btn_login button:hover,
 .btn_registro button:hover,
