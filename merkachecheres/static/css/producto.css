@@ -1216,642 +1216,79 @@ line-height: normal;
     padding: 16px;
 }
 
+/* ===== [INICIO] MEDIA QUERIES ALL-IN-ONE ===== */
+/* Móviles (default) - No necesita query */
 
-
-/*--------------------------------------responsive-------------------------------*/
-/* Escritorio grande */
-@media (min-width: 1280px) {
-    
+/* Small (≥576px) */
+@media (min-width: 576px) { 
+    :root { --base-size: 1.05rem; } /* Ajuste tipográfico */
+    .container { padding: 0 20px; }
+  }
+  
+  /* Medium (≥768px) */
+  @media (min-width: 768px) { 
+    :root { --base-size: 1.1rem; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  
+  /* Large (≥992px) */
+  @media (min-width: 992px) { 
+    :root { --base-size: 1.2rem; }
+    .grid { grid-template-columns: repeat(3, 1fr); }
+    .menu-mobile { display: none; }
+    .menu-desktop { display: flex; }
+  }
+  
+  /* X-Large (≥1200px) */
+  @media (min-width: 1200px) { 
+    .container { max-width: 1140px; }
+  }
+  
+  /* XX-Large (≥1400px) */
+  @media (min-width: 1400px) { 
+    .container { max-width: 1320px; }
+  }
+  
+  /* Modo oscuro (opcional) */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-color: #1a1a1a;
+      --text-color: #f0f0f0;
+    }
+  }
+  
+  /* Orientación horizontal (opcional) */
+  @media (orientation: landscape) and (max-width: 768px) {
+    .header { height: 60vh; }
+  }
+  
+  /* [EXTRA] Impresión */
+  @media print {
+    body { font-size: 12pt; }
+    .no-print { display: none; }
+  }
+  .cantidadObjetosContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
 }
 
-/* Escritorio pequeño */
-@media (min-width: 1024px) and (max-width: 1279px) {
-    
+.contador-btn {
+    border-radius: 50%;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
 }
 
-/* Tabletas medianas */
-@media (min-width: 769px) and (max-width: 1023px) {
-
+.contador-btn:hover {
+    transform: scale(1.1);
 }
 
-
-/*NAV BAR RESPONSIVE*/
-/*responsive de la nav bar*/
-@media (max-width: 768px) { /*oculta la navbar cuando tiene 768px o menos la pantalla*/
-    .navBarContainerGeneral {
-        display: none;
-        
-    }
-    .buscadorResponsiveContainer{
-        display: flex;
-        width: 800px;
-    }
-    .navbarSearchBarContainer{ /*contenedor del nav bar responsive*/
-        width: 200px;
-    }
+.cantidadNumberContainer h2 {
+    font-size: 24px;
+    margin: 0;
 }
-
-
-/*responsive del sidebar desplegable*/
-
-/* Tablets o dispositivos más grandes */
-@media (min-width:768px){ /*oculta el nmenu desplegable cuando esta en modo pantalla completa o mas de 768px (superior a tablets) cuando se supera este ancho, el sidebar desaparece*/
-    .contenedorSideBar,.navbarSearchBarContainerResponsive,.navbarLogosContainerResponsive{
-        display: none;
-    }
-}
-
-@media (max-width:768px){  /*Esto controla los estilos, pero ahora solo cuando son de 769px o menos*/
-    /*Nav bar*/
-    .contenedorSideBar{
-        display: flex;
-        width: 180px;
-        margin-left: -250px;
-    }
-    .navbarSearchBarContainerResponsive{/*estilos del contenedor general, ayuda a centrarlo a la izquierda*/
-        width: 600px;
-    }
-    .navbarSearchBarContainerResponsive{ /*la barra de busqueda*/
-        position: relative;
-        left: -10px;
-        width: 290px; /*controla el ancho de la barra de busqueda*/
-    }
-    .navBarTextContainer{ /*contenedor del texto de la barra*/
-        margin-bottom: 2px;
-    }
-    .buscadorResponsiveContainer{ /*esto mueve el contenedor padre*/
-        
-        position: relative;
-        left: -5px;
-    }
-    .navbarLogosContainerResponsive{
-        display: flex;
-        gap: 20px;
-        position: relative;
-        left: -10px;
-        margin-left: 50px;
-        margin-top: 10px;
-    }
-    /*Nav bar*/
-
-
-}
-
-
-/* Estilos para dispositivos intermedios */
-
-@media (min-width: 600px) and (max-width: 767px) {
-    /*Nav bar*/
-    .contenedorSideBar{
-        display: flex;
-        width: 180px;
-        margin-left: -260px;
-    }
-    .navbarSearchBarContainerResponsive{/*estilos del contenedor general, ayuda a centrarlo a la izquierda*/
-        width: 600px;
-        
-    }
-    .navbarSearchBarContainerResponsive{ /*la barra de busqueda*/
-        margin-right: 20px;
-        width: 300px; /*controla el ancho de la barra de busqueda*/
-    }
-    .navBarTextContainer{ /*contenedor del texto de la barra*/
-        margin-bottom: 2px;
-        
-    }
-    .buscadorResponsiveContainer{ /*esto mueve el contenedor padre*/
-        gap: -10px;
-        display: flex;
-        position: relative;
-        left: 20px;
-    }
-    .navbarLogosContainerResponsive{
-        display: none;
-    }
-    /*Nav bar*/
-
-    /*Main*/
-    .sectionMainGeneralContainer { /*Contenedor padre de todas las fotos*/
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        left: -110px;
-    }
-    .ImgContainerColumn {
-        display: flex;
-        flex-direction: row;
-        width: 375px;
-        margin-bottom: -60px;
-        gap: 40px; /*esto separa las fotos de arriba entre si*/
-        margin-left: 25px;
-    }
-    #ImgColum{
-        width: 130px;
-    }
-    #ImgGrandeColum{
-        width: 300px;
-    }
-    .ImgContainerGrande{ /*contenedor de la imagen grande sisi*/
-        width: 380px;
-        position: relative;
-        left: 100px;
-    
-    }
-    .imgMainGeneralContainer{ /*esto mueve todos los elementos por si solos*/
-        width: 380px;
-        
-    }
-    .imgMainGeneralContainer {
-        display: flex;
-        flex-direction: column;
-    }
-    /*Main*/
-
-    /*Titulo producto y descripcion*/
-    .tittleProductContainer{ /*Esto ubica el titulo del producto*/
-        margin-left: 60px;
-        margin-top: -70px;
-        width: 350px;
-        justify-content: center;
-        align-items: center;
-    }
-    #tittleText{
-        font-size: 150%;
-        white-space: nowrap;
-    }
-    .xxx{
-        margin-right: -30px;
-    }
-    .corazoncontainer{
-        margin-bottom: 5px;
-    }
-    /*Titulo producto y descripcion*/
-
-        /*Detalles del producto*/
-
-        /*contenedor de las estrellas y rating*/
-    .starsDetailsProductContainer{ 
-        display: flex;
-        width: 350px; /*define el ancho del div*/
-        justify-content: center;
-        margin-left: 40px;
-    }
-        /*precio*/
-    .priceContainerGeneral{
-        width: 370px;
-        margin-left: 50px;
-        
-    }
-        /*descripcion*/
-    .linea1,.linea2{
-        display: none;
-    }
-    .descriptionProductContainer{
-        width: 370px;
-        margin-left: 50px;
-        margin-top: 10px;
-    }
-    /*Detalles del producto*/
-
-    /*COLOR*/
-
-        /*Color Container*/
-    .colorContainerGeneral{ /*Esto centra el div de los colores*/
-        margin-left: 130px;
-        margin-top: 30px;
-        
-    }
-
-    .colorContainer{ /*Dimensiones del div de los colores*/
-        width: 200px;
-        height: 100px;
-    }
-    .colorTextContainer{ /*centra el div del texto "color"*/
-        margin-left: 63px;
-        margin-top: 7px;
-    }
-    .colorContainer2{ /*centra el div de los colores*/
-        display: flex;
-        gap: 20px;
-        margin-left: 20px;
-    }
-    /*COLOR*/
-
-        /*tamaños*/
-    .tamanoContainerGeneral{
-        margin: 40px;
-        margin-left: 15px;
-        width: 460px;
-        
-
-    }
-    .linea3{
-        width: 100%;
-        margin-left: -70px;
-    }
-    .tamanoTittleContainer{
-        margin-left: 155px;
-        
-        width: 130px;
-    }
-    #tamanoTittle{
-        font-size: 35px;
-    }
-    .tamanoTextContainer{
-        margin-top: 7px;
-    }
-    /*tamaños*/
-
-        /*Botones de comprar*/
-    .buttonycantidadContainerGeneral{
-        margin-left: -13px;
-        width: 535px;
-    }
-    .cantidadNumberContainer{ /*centra los iconos poniendo margin al div del "1"*/
-        margin-right: -10px;
-        margin-left: -10px;
-    }
-    .cantidadContainer{ /*div del boton de la cantidad*/
-        
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .ButtonContainerGeneral{ /*cambia ancho del boton comprar*/
-        width: 170px;
-        margin-left: -15px;
-        margin-right: -15px;
-    }
-    .carritoContainerGeneral{ /*cambia ancho del boton cagregar al carrito*/
-        width: 165px;
-    }
-    .carritoContainer{
-        margin-top: 5px;
-    }
-    /*tamaños*/
-
-    /*productos del vendedor*/
-    .productContainer1,.productContainer2{
-        margin-right: -200px;
-    }
-    .titleVendedorContainer{
-        height: 50px;
-        width: 500px;
-    }
-    .tituloContainer{
-        margin-top: 10px;
-    }
-    #vendedorTittle{
-        font-size: 35px;
-    }
-    .productsContainerGeneral{ /*flex direction column para organizar en columna los productos*/
-        display: flex;
-        flex-direction: column;
-        width: 450px;
-        
-    }
-    #imgproduct{ /*Esto controla el tamaño de las imágenes de los productos*/
-        width: 200px;
-    }
-
-    .imgContainerProduct{
-        margin: -50px;
-    }
-    .precioContainer{
-        margin-top: 10px;
-        margin-left: 40px;
-    }
-    .estrellasContainer{
-        margin-top: 10px;
-        margin-left: -10px;
-    }
-    .productContainer1,.productContainer2.productContainer2{
-        height: 415px;
-
-        width: 450px;
-    }
-    .productContainer2,.productContainer3{
-        margin-top: -250px;
-    }
-
-
-    .caracteristicasSection{ /*esto hace que el siguiente section (caracetristicas) se baje*/
-        margin-top: 1000px;
-    }
-    /*productos del vendedor*/
-
-
-    /*Caracteristicas del producto*/
-    .caracteristicasDescripcionContainer,.caracteristicasDescripcionContainerGeneral{
-        width: 500px;
-        
-    }
-    .caracteristicasDescripcionContainerGeneral{
-        margin-left: -40px;
-    }
-    .linea4{
-        width: 400px;
-        margin-left: -20px;
-    }
-    .caracteristicasTituloContainer{
-        margin-left: 20px;
-    }
-    /*footer*/
-    .tituloIzquierdaFooterContainer{
-        position: relative;
-        top: -80px;
-        
-    }
-    /*Reseñas*/
-    .todaslasresenasContainer{
-        display: flex;
-        flex-direction: column;
-        margin-top: 90px;
-    }
-    .rightmenuContainerGeneral{
-        margin-top: 20px;
-        
-        flex-direction: column;
-        display: flex;
-        align-items: center;
-    }
-    .resenaContainer{
-        position: absolute;
-        bottom: -2710px;
-    }
-    .filtroContainer{
-        position: absolute;
-        bottom: -2780px;
-    }
-
-    /*comentarios*/
-    .comentariosGeneralContainer{
-        margin-top: 200px;
-        display: flex;
-        flex-direction: column;
-        margin-left: -54px;
-        
-    }
-    .comentariosSection{
-        width: 900px;
-    }
-    
-    .tituloResenasContainer{
-        display: flex;
-        gap: 30px;
-    }
-    .userComentContainer{
-        width: 60%;
-        
-    }
-}
-
-
-
-@media (min-width: 509px) and (max-width: 599px) {
-    /*Nav bar*/
-    .contenedorSideBar{
-        display: flex;
-        width: 600px;
-        margin-left: -280px;
-    }
-    .open-btn{
-        width: 600px;
-    }
-    .navbarLogosContainerResponsive,.navbarSearchBarContainerResponsive{
-        display: none;
-    }
-    /*Nav bar*/
-
-    /*Main*/
-    .sectionMainGeneralContainer { /*Contenedor padre de todas las fotos*/
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        left: -153px;
-    }
-    .ImgContainerColumn {
-        display: flex;
-        flex-direction: row;
-        width: 375px;
-        margin-bottom: -60px;
-        gap: 40px; /*esto separa las fotos de arriba entre si*/
-        margin-left: 25px;
-        
-
-    }
-    #ImgColum{
-        width: 130px;
-    }
-    #ImgGrandeColum{
-        width: 300px;
-    }
-    .ImgContainerGrande{ /*contenedor de la imagen grande sisi*/
-        width: 380px;
-        position: relative;
-        left: 100px;
-    
-    }
-    .imgMainGeneralContainer{ /*esto mueve todos los elementos por si solos*/
-        width: 380px;
-        
-    }
-    .imgMainGeneralContainer {
-        display: flex;
-        flex-direction: column;
-    }
-    /*Main*/
-
-    
-}
-/* Teléfonos medianos */
-
-
-
-/* Estilos para dispositivos más grandes */
-@media (min-width: 376px) and (max-width: 508px) {
-    /*Nav bar*/
-    .contenedorSideBar{
-        display: flex;
-        width: 600px;
-        margin-left: -280px;
-    }
-    .open-btn{
-        width: 600px;
-    }
-    .navbarLogosContainerResponsive,.navbarSearchBarContainerResponsive{
-        display: none;
-    }
-    /*Nav bar*/
-
-    /*Main*/
-    .sectionMainGeneralContainer { /*Contenedor padre de todas las fotos*/
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        left: -153px;
-    }
-    .ImgContainerColumn {
-        display: flex;
-        flex-direction: row;
-        width: 375px;
-        margin-bottom: -60px;
-        gap: 40px; /*esto separa las fotos de arriba entre si*/
-        margin-left: 25px;
-        
-
-    }
-    #ImgColum{
-        width: 130px;
-    }
-    #ImgGrandeColum{
-        width: 300px;
-    }
-    .ImgContainerGrande{ /*contenedor de la imagen grande sisi*/
-        width: 380px;
-        position: relative;
-        left: 100px;
-    
-    }
-    .imgMainGeneralContainer{ /*esto mueve todos los elementos por si solos*/
-        width: 380px;
-        
-    }
-    .imgMainGeneralContainer {
-        display: flex;
-        flex-direction: column;
-    }
-    /*Main*/
-
-}
-
-
-@media (min-width: 321px) and (max-width: 375px){
-    /*Nav bar*/
-    .contenedorSideBar{
-        display: flex;
-        width: 520px;
-        margin-left: -230px;
-    }
-    .open-btn{
-        width: 520px;
-    }
-    .navbarLogosContainerResponsive,.navbarSearchBarContainerResponsive{
-        display: none;
-    }
-    /*Nav bar*/
-    
-    /*Main*/
-    .sectionMainGeneralContainer { /*Contenedor padre de todas las fotos*/
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        left: -100px;
-    }
-    .ImgContainerColumn {
-        display: flex;
-        flex-direction: row;
-        width: 375px;
-        margin-bottom: -130px;
-        gap: 10px; /*esto separa las fotos de arriba entre si*/
-        margin-left: -38px;
-        
-
-    }
-    #ImgColum{
-        width: 110px;
-    }
-    #ImgGrandeColum{
-        width: 250px;
-    }
-    .ImgContainerGrande{ /*contenedor de la imagen grande sisi*/
-        width: 380px;
-        margin-top: 10px;
-        margin-left: 10px;
-        
-    
-    }
-    .imgMainGeneralContainer{ /*esto mueve todos los elementos por si solos*/
-        width: 380px;
-        
-    }
-    .imgMainGeneralContainer {
-        display: flex;
-        flex-direction: column;
-    }
-    /*Main*/
-    
-}
-/* Teléfonos pequeños */
-
-@media (max-width: 320px) {
-    /*Nav bar*/
-    .contenedorSideBar{
-        display: flex;
-        width: 520px;
-        margin-left: -280px;
-    }
-    .open-btn{
-        width: 520px;
-    }
-    .navbarLogosContainerResponsive,.navbarSearchBarContainerResponsive{
-        display: none;
-    }
-    /*Nav bar*/
-
-
-    /*Main*/
-    .sectionMainGeneralContainer { /*Contenedor padre de todas las fotos*/
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        left: -100px;
-    }
-    .ImgContainerColumn {
-        display: flex;
-        flex-direction: row;
-        width: 375px;
-        margin-bottom: -170px;
-        gap: -10px; /*esto separa las fotos de arriba entre si*/
-        margin-left: -35px;
-        
-
-    }
-    #ImgColum{
-        width: 90px;
-    }
-    #ImgGrandeColum{
-        width: 200px;
-    }
-    .ImgContainerGrande{ /*contenedor de la imagen grande sisi*/
-        width: 380px;
-        margin-top: 10px;
-        margin-left: 5px;
-        
-    
-    }
-    .imgMainGeneralContainer{ /*esto mueve todos los elementos por si solos*/
-        width: 380px;
-        
-    }
-    .imgMainGeneralContainer {
-        display: flex;
-        flex-direction: column;
-    }
-    /*Main*/
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

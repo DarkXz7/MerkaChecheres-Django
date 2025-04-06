@@ -1,11 +1,17 @@
-// Función para abrir la sidebar
-function openNav() {
-    document.getElementById("mySidebar").style.width = "250px"; // Ajusta el ancho de la sidebar
-    document.getElementById("main-content").style.marginLeft = "250px"; // Mueve el contenido principal
-}
+const cantidadText = document.getElementById('cantidadText');
+const btnSumar = document.getElementById('btn-sumar');
+const btnRestar = document.getElementById('btn-restar');
 
-// Función para cerrar la sidebar
-function closeNav() {
-    document.getElementById("mySidebar").style.width = "0"; // Cierra la sidebar
-    document.getElementById("main-content").style.marginLeft = "0"; // Restablece el contenido principal
-}
+let cantidad = 1; // Valor inicial
+
+btnSumar.addEventListener('click', () => {
+    cantidad++;
+    cantidadText.textContent = cantidad;
+});
+
+btnRestar.addEventListener('click', () => {
+    if (cantidad > 0) {
+        cantidad--;
+        cantidadText.textContent = cantidad;
+    }
+});
