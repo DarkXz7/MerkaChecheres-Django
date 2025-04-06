@@ -7,8 +7,13 @@ class Usuario(models.Model):
     full_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, unique=True)
-    password = models.CharField(max_length=128)  # Elimina la coma aquí
-    reset_token = models.CharField(max_length=64, null=True, blank=True)  # También elimina la coma aquí
+    password = models.CharField(max_length=128) 
+    reset_token = models.CharField(max_length=64, null=True, blank=True)  
+    telefono = models.CharField(max_length=15, default="Sin teléfono")  # Valor por defecto
+    departamento = models.CharField(max_length=100, default="Sin departamento")  # Valor por defecto
+    direccion = models.CharField(max_length=255, default="Sin dirección")  # Valor por defecto
+    municipio = models.CharField(max_length=100, default="Sin municipio")  # Valor por defecto
+    ciudad = models.CharField(max_length=100, default="Sin ciudad")  # Valor por defecto
     ROLES = (
         (1, "Admin"),
         (2, "Cliente"),
@@ -27,6 +32,7 @@ class Producto(models.Model):
     dimensiones = models.CharField(max_length=100, null=True, blank=True)
     stock = models.IntegerField()
     marca = models.CharField(max_length=100, null=True, blank=True)
+    
     categoria = (
         (1, "Muebles"),
         (2, "Electrónica"),
