@@ -11,7 +11,7 @@
 <body>
     
     <div class="container">
-        <h2>Publicar un artículo en Marketplace</h2>
+        <h2>Publicar un artículo en MerkaChecheres</h2>
         <form method="POST" enctype="multipart/form-data" id="product-form">
             {% csrf_token %}
             
@@ -57,7 +57,7 @@
 
             <div class="button-group">
                 <button type="submit" class="publish-btn">Publicar</button>
-                <button type="button" class="cancel-btn" data-url="{% url 'index' %}">Cancelar</button>
+                <button type="button" class="cancel-btn"  onclick="window.location.href='{% url 'index' %}'">Cancelar</button>
             </div>
             
         
