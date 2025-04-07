@@ -197,7 +197,7 @@ def solicitar_cambio_contrasena(request):
             usuario = Usuario.objects.get(email=email)
             # Guardar el email en la sesión para usarlo en la siguiente vista
             request.session['email_para_cambio'] = email
-            messages.success(request, "Correo verificado. Ahora puedes restablecer tu contraseña.")
+            messages.success(request, "Correo verificado, Ahora puedes restablecer tu contraseña")
             return redirect('restablecer_contrasena')  # Redirige al formulario de restablecimiento
         except Usuario.DoesNotExist:
             messages.error(request, "El correo electrónico no está registrado.")
