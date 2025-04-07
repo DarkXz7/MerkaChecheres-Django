@@ -84,7 +84,23 @@
                                         </button>
                                     {% endif %}
                                 </div>
-                                
+                                {% if messages %}
+                                    <div id="message-container">
+                                        {% for message in messages %}
+                                            {% if message.tags == "success" %}
+                                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                    {{ message }}
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            {% elif message.tags == "error" %}
+                                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                    {{ message }}
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -165,6 +181,10 @@
                             <th>Email</th>
                             <th>Nombre de Usuario</th>
                             <th>Rol</th>
+                            <th>Telefono</th>
+                            <th>Departamento</th>
+                            <th>Direccion</th>
+                            <th>Municipio</th>
                             <th>Acciones</th>
                             </tr>
                         </thead>
@@ -177,9 +197,13 @@
                                 <td>{{ usuario.email }}</td>
                                 <td>{{ usuario.username }}</td> 
                                 <td>{{ usuario.get_rol_display }}</td> 
+                                <td>{{ usuario.telefono }}</td> 
+                                <td>{{ usuario.departamento }}</td>
+                                <td>{{ usuario.direccion }}</td>
+                                <td>{{ usuario.municipio }}</td>
                                 <td>
-                                    <button class="buttons">Editar</button>
-                                    <button class="buttons">Eliminar</button>
+                                    <button class="buttons" onclick="window.location.href='{% url 'editar_usuario' usuario.id %}'">Editar</button>
+                                    <button class="buttons btn-danger" onclick="if(confirm('¿Estás seguro de que deseas eliminar este usuario?')) { window.location.href='{% url 'eliminar_usuario' usuario.id %}'; }">Eliminar</button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -215,6 +239,19 @@
         </div>
     </main>
     <script src="{% static 'js/user-sidebar.js' %}"></script>
-    
+    <script>
+        // Esperar 3 segundos y ocultar el mensaje
+        setTimeout(() => {
+            const messageContainer = document.getElementById('message-container');
+            if (messageContainer) {
+                messageContainer.style.transition = "opacity 0.5s ease";
+                messageContainer.style.opacity = "0";
+                
+                setTimeout(() => {
+                    messageContainer.remove();
+                }, 500); // Esperar a que termine la transición antes de eliminarlo
+            }
+        }, 3000); // 3000 ms = 3 segundos
+    </script>
 </body>
 </html>

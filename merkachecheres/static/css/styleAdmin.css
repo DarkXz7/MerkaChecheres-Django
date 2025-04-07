@@ -19,7 +19,14 @@
 
 /* --- NAVBAR SOLAMENTE --- */
 
-
+.alert-error {
+  color: #fff;
+  background-color: #dc3545; /* Rojo */
+  border: 1px solid #dc3545;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
 /* Estructura principal de la navbar */
 .navigation {
   width: 100%;

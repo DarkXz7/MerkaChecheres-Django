@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -109,22 +110,43 @@
             </div>
         </header>
         <aside id="cart-sidebar">
-            <button id="close-cart" class="btn btn-light close-btn">
-                <i class="bi bi-x-lg">X</i>
-            </button>
-            <h2>Carrito de Compras</h2>
-            <ul id="cart-items" class="list-group">
-                <li class="list-group-item text-center">El carrito está vacío</li>
-            </ul>
-            <div class="cart-footer">
-                <p>Total: $<span id="cart-total">0.00</span></p>
-                <button id="clear-cart" class="btn btn-danger">
-                    <i class="bi bi-trash"></i> Vaciar Carrito
+                <button id="close-cart" class="btn btn-light close-btn">
+                    <i class="bi bi-x-lg">X</i>
                 </button>
-                <button id="checkout" class="btn btn-success">
-                    <i class="bi bi-credit-card"></i> Pagar
-                </button>
-            </div>
+                <h2>Carrito de Compras</h2>
+                <ul id="cart-items" class="list-group">
+                    {% if request.session.carrito %}
+                        {% for producto_id, producto in request.session.carrito.items %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>{{ producto.titulo }} - ${{ producto.precio }} x{{ producto.cantidad }}</span>
+                                <div>
+                                    <button class="btn btn-sm btn-danger" onclick="window.location.href='{% url 'eliminar_del_carrito' producto_id %}'">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item text-center">El carrito está vacío</li>
+                    {% endif %}
+                </ul>
+                <div class="cart-footer">
+                    
+                    <p>Total: $<span id="cart-total">
+                        {% if request.session.carrito %}
+                            
+                        {% else %}
+                            0.00
+                        {% endif %}
+                    </span></p>
+                    </span></p>
+                    <button id="clear-cart" class="btn btn-danger" onclick="window.location.href='{% url 'vaciar_carrito' %}'">
+                        <i class="bi bi-trash"></i> Vaciar Carrito
+                    </button>
+                    <button id="checkout" class="btn btn-success">
+                        <i class="bi bi-credit-card"></i> Pagar
+                    </button>
+                </div>
         </aside>
 
         <aside id="user-sidebar">
@@ -136,7 +158,6 @@
                     <p>Bienvenido, {{ request.session.validar.nombre }}</p>
                 </h2>
             </div>
-            
             <ul id="user-items" class="list-group">                
             </ul>
             <div class="btn_logout">

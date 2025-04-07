@@ -7,6 +7,9 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import make_password
 from django.utils.crypto import get_random_string
+from .colombia_data import DEPARTAMENTOS_Y_MUNICIPIOS
+from django.contrib.messages import get_messages
+
 
 def registro(request):
     if request.method == 'POST':
@@ -18,7 +21,7 @@ def registro(request):
         departamento = request.POST.get('departamento')
         direccion = request.POST.get('direccion')
         municipio = request.POST.get('municipio', 'Sin municipio')
-        ciudad = request.POST.get('ciudad')
+        
         
         
         
@@ -47,10 +50,10 @@ def registro(request):
                 departamento=departamento, 
                 direccion=direccion, 
                 municipio=municipio, 
-                ciudad=ciudad
+                
                 )
             usuario.save()
-            messages.success(request, "Cuenta creada exitosamente.")
+            
             
             # Try to authenticate the newly created user
             try:
@@ -61,7 +64,7 @@ def registro(request):
                     "rol": q.rol,
                     "nombre": q.full_name  # Changed from q.nombre to match the field name
                 }
-                messages.success(request, "Bienvenido!!")
+                messages.success(request, f"Tu cuenta ha sido creada exitosamente. ¡Bienvenido a MerkaChecheres {q.full_name}!")
                 return redirect("index")
             except Usuario.DoesNotExist:
                 request.session["pista"] = None
@@ -100,6 +103,41 @@ def login(request):
             messages.error(request, "Correo electrónico o contraseña incorrectos.")
             return render(request, 'login.html')
     return render(request, 'login.html')
+
+
+
+def eliminar_usuario(request, usuario_id):
+    try:
+        usuario = Usuario.objects.get(id=usuario_id)
+        usuario.delete()
+        messages.error(request, f"El usuario {usuario.full_name} ha sido eliminado exitosamente.")
+    except Usuario.DoesNotExist:
+        messages.error(request, "El usuario no existe.")
+    return redirect('admin_dashboard')
+
+def editar_usuario(request, usuario_id):
+    try:
+        usuario = Usuario.objects.get(id=usuario_id)
+
+        if request.method == 'POST':
+            usuario.full_name = request.POST.get('full_name')
+            usuario.email = request.POST.get('email')
+            usuario.username = request.POST.get('username')
+            usuario.telefono = request.POST.get('telefono')
+            usuario.departamento = request.POST.get('departamento')
+            usuario.direccion = request.POST.get('direccion')
+            usuario.municipio = request.POST.get('municipio')
+            usuario.rol = request.POST.get('rol')
+            usuario.save()
+
+            messages.success(request, f"El usuario {usuario.full_name} ha sido actualizado exitosamente.")
+            return redirect('admin_dashboard')
+
+        return render(request, 'editar_usuario.html', {'usuario': usuario})
+    except Usuario.DoesNotExist:
+        messages.error(request, "El usuario no existe.")
+        return redirect('admin_dashboard')
+    
 
 
 from decimal import Decimal, InvalidOperation
@@ -174,7 +212,7 @@ def publicar(request):
             for imagen in imagenes:
                 ImagenProducto.objects.create(producto=producto, imagen=imagen)
 
-            messages.success(request, "Producto publicado exitosamente.")
+            messages.success(request, "Producto publicado exitosamente")
             return render(request, 'publicarArticulo.html', {'redirect': True})
 
         except InvalidOperation:
@@ -186,6 +224,36 @@ def publicar(request):
             return render(request, 'publicarArticulo.html')
 
     return render(request, 'publicarArticulo.html')
+
+
+def agregar_al_carrito(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+
+    # Obtén el carrito de la sesión o inicialízalo
+    carrito = request.session.get('carrito', {})
+
+    # Si el producto ya está en el carrito, incrementa la cantidad
+    if str(producto_id) in carrito:
+        carrito[str(producto_id)]['cantidad'] += 1
+    else:
+        # Agrega el producto al carrito
+        carrito[str(producto_id)] = {
+            'titulo': producto.titulo,
+            'precio': float(producto.precio),
+            'categoria': producto.get_categoria_display(),
+            'stock': producto.stock,
+            'cantidad': 1
+        }
+
+    # Guarda el carrito en la sesión
+    request.session['carrito'] = carrito
+    request.session.modified = True
+
+    messages.success(request, f"{producto.titulo} se ha agregado al carrito.")
+    return redirect('producto', producto_id=producto_id)
+
+
+
 
 
 def solicitar_cambio_contrasena(request):
@@ -233,7 +301,7 @@ def restablecer_contrasena(request):
             del request.session['email_para_cambio']
 
             # Mostrar mensaje de éxito y redirigir al login
-            messages.success(request, "Tu contraseña ha sido restablecida exitosamente. Ahora puedes iniciar sesión.")
+            messages.success(request, "Tu contraseña ha sido restablecida exitosamente Ahora puedes iniciar sesión.")
             return redirect('login')
 
         return render(request, 'restablecer_contrasena.html')
@@ -242,43 +310,58 @@ def restablecer_contrasena(request):
         messages.error(request, "El correo electrónico no es válido.")
         return redirect('solicitar_cambio_contrasena')
 
+def eliminar_del_carrito(request, producto_id):
+    # Obtén el carrito de la sesión
+    carrito = request.session.get('carrito', {})
 
+    # Elimina el producto del carrito si existe
+    if str(producto_id) in carrito:
+        del carrito[str(producto_id)]
+        request.session['carrito'] = carrito
+        request.session.modified = True
+        messages.success(request, "El producto ha sido eliminado del carrito.")
+    else:
+        messages.error(request, "El producto no está en el carrito.")
+
+    return redirect('index')  # Redirige al índice o a la página que prefieras
 
 def logout(request):
     # Elimina la sesión del usuario
     request.session.flush()
-    messages.success(request, "Has cerrado sesión exitosamente.")
+    messages.success(request, "Has cerrado sesión exitosamente")
     return redirect('index')
 
 
+
 def editar_perfil(request):
-    # Obtener el ID del usuario logueado desde la sesión
     usuario_id = request.session.get('validar', {}).get('id')
 
     if not usuario_id:
         messages.error(request, "No has iniciado sesión.")
         return redirect('login')
 
-    # Obtener los datos del usuario desde la base de datos
     usuario = Usuario.objects.get(id=usuario_id)
+    municipios = DEPARTAMENTOS_Y_MUNICIPIOS.get(usuario.departamento, [])
 
     if request.method == 'POST':
-        # Actualizar los datos del usuario con los valores enviados desde el formulario
         usuario.full_name = request.POST.get('nombreApellido')
         usuario.email = request.POST.get('email')
         usuario.telefono = request.POST.get('telefono')
         usuario.direccion = request.POST.get('direccion')
         usuario.departamento = request.POST.get('departamento')
-        usuario.ciudad = request.POST.get('ciudad')
         usuario.municipio = request.POST.get('municipio')
         usuario.save()
 
-        # Mostrar un mensaje de éxito y redirigir al index
         messages.success(request, "Perfil actualizado exitosamente.")
         return redirect('index')
 
-    # Renderizar la plantilla con los datos del usuario
-    return render(request, 'editar.html', {'usuario': usuario})
+    return render(request, 'editar.html', {
+        'usuario': usuario,
+        
+        'departamentos': DEPARTAMENTOS_Y_MUNICIPIOS.keys(),
+        'departamentos_y_municipios': DEPARTAMENTOS_Y_MUNICIPIOS,
+        'municipios': municipios
+    })
 
 
 
@@ -290,12 +373,16 @@ def cliente_dashboard(request):
     return render(request, 'index.html')
 def vendedor_dashboard(request):
     return render(request, 'vendedor.html')
-
 def producto(request, producto_id):
     try:
         # Buscar el producto por su ID
         producto = Producto.objects.get(id=producto_id)
         imagenes = producto.imagenes.all()  # Obtener las imágenes relacionadas
+
+        # Calcular el total del carrito
+        carrito = request.session.get('carrito', {})
+        total_carrito = sum(item['precio'] * item['cantidad'] for item in carrito.values())
+
     except Producto.DoesNotExist:
         # Si el producto no existe, redirigir al índice con un mensaje de error
         messages.error(request, "El producto no existe.")
@@ -304,6 +391,7 @@ def producto(request, producto_id):
     return render(request, 'producto.html', {
         'producto': producto,
         'imagenes': imagenes,
+        'total_carrito': total_carrito,  # Pasa el total al contexto
     })
 
 def producto_view(request):
@@ -329,12 +417,32 @@ def index(request):
     
     # Verifica si hay una sesión activa
     sesion_activa = request.session.get('validar', None)
+
+    carrito = request.session.get('carrito', {})
+    total_carrito = sum(item['precio'] * item['cantidad'] for item in carrito.values())
     
     return render(request, "index.html", {
         'productos': productos,
         'productos_count': productos.count(),
+        'total_carrito': total_carrito,  # Pasa el total al contexto
         
     })
+
+def vaciar_carrito(request):
+    # Limpia los mensajes existentes
+    
+    storage = get_messages(request)
+    for _ in storage:
+        pass  # Esto consume los mensajes existentes y los elimina
+
+    # Vacía el carrito
+    request.session['carrito'] = {}
+    request.session.modified = True
+    
+    # Agrega el mensaje de que el carrito fue vaciado
+    messages.success(request, " Tu carrito ha sido vaciado")
+    return redirect('index')
+
 
 def adminlogin(request):
     return render(request, "adminlogin.html")

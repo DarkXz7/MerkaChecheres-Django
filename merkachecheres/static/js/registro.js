@@ -17,3 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
         mensajeDiv.style.display = 'none';
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const telefonoInput = document.getElementById('telefono');
+
+    telefonoInput.addEventListener('input', function () {
+        // Elimina cualquier carácter que no sea un número
+        this.value = this.value.replace(/[^0-9]/g, '');
+
+        if (this.value.length > 10) {
+            this.value = this.value.slice(0, 10);
+        }
+    });
+});

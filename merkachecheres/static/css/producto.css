@@ -245,7 +245,7 @@ body {
 
 }
 
-.carritoText{
+.carritoText{ 
     background-color: var(--color-verde);
     cursor: pointer;
     border: solid 1px #000;

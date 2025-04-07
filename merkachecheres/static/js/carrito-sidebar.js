@@ -158,3 +158,14 @@ document.addEventListener("DOMContentLoaded", () => {
         footer.classList.remove("blur");
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const closeCartButton = document.getElementById("close-cart");
+    const cartSidebar = document.getElementById("cart-sidebar");
+
+    // Cerrar el carrito al hacer clic en el botón de cierre
+    closeCartButton.addEventListener("click", () => {
+        cartSidebar.classList.remove("active");
+    });
+});

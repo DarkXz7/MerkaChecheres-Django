@@ -12,7 +12,7 @@ class Usuario(models.Model):
     departamento = models.CharField(max_length=100, default="Sin departamento")  # Valor por defecto
     direccion = models.CharField(max_length=255, default="Sin dirección")  # Valor por defecto
     municipio = models.CharField(max_length=100, default="Sin municipio")  # Valor por defecto
-    ciudad = models.CharField(max_length=100, default="Sin ciudad")  # Valor por defecto
+    
     ROLES = (
         (1, "Admin"),
         (2, "Cliente"),
