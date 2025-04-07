@@ -103,6 +103,25 @@ body {
     gap: 1.5rem;
     margin-left: 1rem;
   }
+  .frame_2 {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: 1rem;
+  }
+  
+  .frame_2 {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: 1rem;
+    justify-content: flex-start; /* Asegura que los elementos se alineen al principio */
+  }
+  
+  .btn_login,
+  .btn_registro {
+    display: none;  /* pendiente de que se muestren correctamente con un flex */
+    align-items: center; /* Alinea el contenido dentro de los divs */
+  }
+  
   
   /* Botones de login/registro */
   .button_text_wrapper {

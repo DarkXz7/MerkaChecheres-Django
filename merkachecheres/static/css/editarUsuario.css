@@ -1,0 +1,109 @@
+/* Fondo general oscuro */
+.fondoOscuro {
+    background-color: #111;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  /* Modal contenedor */
+  .modalFormulario {
+    background-color: #fff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Título y descripción */
+  .modalFormulario h2 {
+    font-size: 2rem;
+    color: #111;
+    margin-bottom: 0.5rem;
+  }
+  
+  .descripcion {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Agrupación de campos */
+  .grupoCampos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  .campoFormulario {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .campoFormulario label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .campoFormulario input,
+  .campoFormulario select {
+    padding: 0.6rem 0.75rem;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .campoFormulario input:focus,
+  .campoFormulario select:focus {
+    border-color: #28a745;
+    outline: none;
+  }
+  
+  /* Botones */
+  .botonesFormulario {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  .btnGuardar {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btnGuardar:hover {
+    background-color: #218838;
+  }
+  
+  .btnCancelar {
+    background-color: #ccc;
+    color: #111;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btnCancelar:hover {
+    background-color: #aaa;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .grupoCampos {
+      grid-template-columns: 1fr;
+    }
+  }
+  
