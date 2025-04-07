@@ -1399,6 +1399,7 @@ main {
     text-align: center;
     letter-spacing: 0;
     line-height: normal;
+    cursor: pointer;
 }
 
 .landing_page .inicio-cat-logo-de {
