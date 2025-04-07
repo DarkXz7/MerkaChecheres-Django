@@ -40,6 +40,7 @@
                                     <button class="dropbtn">Catalogo</button>
                                 </div>
                             </div>
+                            
                             </div>
                         <div class="buscar">
                             <input type="password" id="password" name="password" placeholder="Buscar algo.." class="navbar">
@@ -91,6 +92,7 @@
                                         </button>
                                     {% endif %}
                                 </div>
+                                {% include 'user_sidebar.html' %}
                                 
                             </div>
                         </div>
@@ -227,24 +229,35 @@
                     <div class="additionalDetails">
                         <p><strong>Categoría:</strong> {{ producto.get_categoria_display }}</p>
                         
-                            <p><strong>Stock:</strong> {{ producto.stock }}</p>
+                            
                             {% if producto.dimensiones %}
                                 <p><strong>Dimensiones del Producto: </strong> {{ producto.dimensiones }}</p>
                             {% endif %}
                             <p><strong>Cantidad Disponible:</strong> {{ producto.stock }}</p>
 
                             <p><strong>Fecha de publicacion:</strong> {{ producto.fecha_publicacion }}</p>
+                            {% if messages %}
+                                    <div id="message-container">
+                                        {% for message in messages %}
+                                            <div class="alert alert-{{ message.tags }}">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
                     </div>
                 </div>    
                 <div class="buttonycantidadContainerGeneral">
                     <div class="cantidadContainerGeneral">
-                        <div class="cantidadContainer">
-                            <div class="cantidadObjetosContainer">
-                                <button class="contador-btn" id="btn-restar">−</button>
-                                <div class="cantidadNumberContainer">
-                                    <h2 id="cantidadText">1</h2>
+                        <div class="cantidadContainerGeneral">
+                            <div class="cantidadContainer">
+                                <div class="cantidadObjetosContainer">
+                                    <button class="contador-btn" id="btn-restar" type="button">−</button>
+                                    <div class="cantidadNumberContainer">
+                                        <h2 id="cantidadText">{{ producto.stock }}</h2> <!-- Inicializa en 1 -->
+                                    </div>
+                                    <button class="contador-btn" id="btn-sumar" type="button">+</button>
                                 </div>
-                                <button class="contador-btn" id="btn-sumar">+</button>
                             </div>
                         </div>
                     </div>                    
@@ -254,12 +267,17 @@
                                 <button class="botonComprar">Comprar Ahora</button>
                             </div>
                         </div>
-                    <div class="carritoContainerGeneral">
-                        <form method="POST" action="{% url 'agregar_al_carrito' producto.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="carritoText">Agregar al carrito</button>
-                        </form>
-                    </div>
+                        <div class="carritoContainerGeneral">
+                            <form method="POST" action="{% url 'agregar_al_carrito' producto.id %}">
+                                {% csrf_token %}
+                                <!-- Campo oculto para enviar la cantidad seleccionada -->
+                                <input type="hidden" id="cantidadInput" name="cantidad" value="1">
+                                <button type="submit" class="carritoText">Agregar al carrito</button>
+                            </form>
+
+                        </div>
+                        
+                        
             </div>
             
         </section>
@@ -755,6 +773,5 @@
     <script src="{% static 'js/producto.js' %}"></script>
     <script src="{% static 'js/carrito-sidebar.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    
 </body>
 </html>
