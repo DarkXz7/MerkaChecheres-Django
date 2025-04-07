@@ -86,6 +86,7 @@ body {
     flex-grow: 1;
     max-width: 500px;
     margin: 0 1rem;
+    
     position: relative;
   }
   
@@ -115,10 +116,13 @@ body {
     margin-left: 1rem;
     justify-content: flex-start; /* Asegura que los elementos se alineen al principio */
   }
-  
+  .iniciar_crear_cuenta{
+    display: flex;
+    gap:10px;
+  }
   .btn_login,
   .btn_registro {
-    display: none;  /* pendiente de que se muestren correctamente con un flex */
+    /* pendiente de que se muestren correctamente con un flex */
     align-items: center; /* Alinea el contenido dentro de los divs */
   }
   
