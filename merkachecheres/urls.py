@@ -20,4 +20,5 @@ urlpatterns = [
     path('cliente_dashboard/', views.cliente_dashboard, name='cliente_dashboard'),
     path('cambio-contrasena/', views.solicitar_cambio_contrasena, name='solicitar_cambio_contrasena'),
     path('restablecer-contrasena/', views.restablecer_contrasena, name='restablecer_contrasena'),
+    path('editar_perfil/', views.editar_perfil, name='editar_perfil'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
