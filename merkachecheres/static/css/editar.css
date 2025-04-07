@@ -1,0 +1,97 @@
+/* Fondo oscuro (overlay) */
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.fondoOscuro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ba0e75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  /* Contenedor del modal */
+  .modalFormulario {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Título */
+  .modalFormulario h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #222;
+  }
+  
+  /* Subtítulo */
+  .descripcion {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 30px;
+  }
+  
+  /* Grid de campos */
+  .grupoCampos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 50px;
+    margin-bottom: 30px;
+  }
+  
+  /* Campo individual */
+  .campoFormulario {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  input,
+  select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  select {
+    appearance: none;
+  }
+  
+  /* Botones */
+  .botonesFormulario {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .btnGuardar,
+  .btnCancelar {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    background-color: #92b869;
+  }
+  
+  .btnCancelar {
+    background-color: #aac27f;
+  }
+  

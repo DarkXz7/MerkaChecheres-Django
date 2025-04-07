@@ -251,6 +251,36 @@ def logout(request):
     return redirect('index')
 
 
+def editar_perfil(request):
+    # Obtener el ID del usuario logueado desde la sesión
+    usuario_id = request.session.get('validar', {}).get('id')
+
+    if not usuario_id:
+        messages.error(request, "No has iniciado sesión.")
+        return redirect('login')
+
+    # Obtener los datos del usuario desde la base de datos
+    usuario = Usuario.objects.get(id=usuario_id)
+
+    if request.method == 'POST':
+        # Actualizar los datos del usuario con los valores enviados desde el formulario
+        usuario.full_name = request.POST.get('nombreApellido')
+        usuario.email = request.POST.get('email')
+        usuario.telefono = request.POST.get('telefono')
+        usuario.direccion = request.POST.get('direccion')
+        usuario.departamento = request.POST.get('departamento')
+        usuario.ciudad = request.POST.get('ciudad')
+        usuario.municipio = request.POST.get('municipio')
+        usuario.save()
+
+        # Mostrar un mensaje de éxito y redirigir al index
+        messages.success(request, "Perfil actualizado exitosamente.")
+        return redirect('index')
+
+    # Renderizar la plantilla con los datos del usuario
+    return render(request, 'editar.html', {'usuario': usuario})
+
+
 
 def admin_dashboard(request):
     usuarios = Usuario.objects.all()
