@@ -58,3 +58,17 @@ document.addEventListener("DOMContentLoaded", () => {
         footer.classList.remove("blur");
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const messageContainer = document.getElementById("message-container");
+    if (messageContainer) {
+        setTimeout(() => {
+            messageContainer.style.transition = "opacity 0.5s ease";
+            messageContainer.style.opacity = "0";
+            setTimeout(() => {
+                messageContainer.remove();
+            }, 500); // Esperar a que termine la transición antes de eliminarlo
+        }, 3000); // 3 segundos
+    }
+});

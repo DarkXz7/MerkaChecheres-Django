@@ -53,3 +53,12 @@ class ImagenProducto(models.Model):
     
     def __str__(self):
         return f"Imagen de {self.producto.titulo}"
+    
+
+class Carrito(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='carritos')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='carritos')
+    cantidad = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"Carrito de {self.usuario.username} - {self.producto.titulo} (Cantidad: {self.cantidad})"

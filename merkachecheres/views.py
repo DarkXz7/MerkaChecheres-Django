@@ -9,7 +9,9 @@ from django.contrib.auth.hashers import make_password
 from django.utils.crypto import get_random_string
 from .colombia_data import DEPARTAMENTOS_Y_MUNICIPIOS
 from django.contrib.messages import get_messages
-
+from django.shortcuts import redirect, get_object_or_404
+from django.contrib import messages
+from .models import Producto, Carrito
 
 def registro(request):
     if request.method == 'POST':
@@ -232,9 +234,12 @@ def agregar_al_carrito(request, producto_id):
     # Obtén el carrito de la sesión o inicialízalo
     carrito = request.session.get('carrito', {})
 
+    # Obtén la cantidad seleccionada desde el formulario
+    cantidad_seleccionada = int(request.POST.get('cantidad', 1))
+
     # Si el producto ya está en el carrito, incrementa la cantidad
     if str(producto_id) in carrito:
-        carrito[str(producto_id)]['cantidad'] += 1
+        carrito[str(producto_id)]['cantidad'] += cantidad_seleccionada
     else:
         # Agrega el producto al carrito
         carrito[str(producto_id)] = {
@@ -242,13 +247,14 @@ def agregar_al_carrito(request, producto_id):
             'precio': float(producto.precio),
             'categoria': producto.get_categoria_display(),
             'stock': producto.stock,
-            'cantidad': 1
+            'cantidad': cantidad_seleccionada
         }
 
     # Guarda el carrito en la sesión
     request.session['carrito'] = carrito
     request.session.modified = True
 
+    # Mensaje de éxito
     messages.success(request, f"{producto.titulo} se ha agregado al carrito.")
     return redirect('producto', producto_id=producto_id)
 

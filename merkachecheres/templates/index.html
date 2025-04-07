@@ -148,35 +148,8 @@
                     </button>
                 </div>
         </aside>
-
-        <aside id="user-sidebar">
-            <button id="close-user" class="btn btn-light close-btn">
-                <i class="bi bi-x-lg">X</i>
-            </button>
-            <div class="user-info">
-                <h2>
-                    <p>Bienvenido, {{ request.session.validar.nombre }}</p>
-                </h2>
-            </div>
-            <ul id="user-items" class="list-group">                
-            </ul>
-            <div class="btn_logout">
-                <div class="btn_logout">
-                    {% if request.session.validar %}
-                    <button >
-                        <img src="{% static 'img/Vector.png' %}" onclick="window.location.href='{% url 'editar_perfil' %}'" id="heartButton" alt="Usuario">
-                    </button>
-                    {% endif %}
-                </div>
-                
-                <div class="btn_logout">
-                    {% if request.session.validar %}
-                        <button class="button_text_wrapper"
-                            onclick="window.location.href='{% url 'logout' %}'">Cerrar Sesión</button>
-                    {% endif %}
-                </div>
-            </div>
-        </aside>
+        {% include 'user_sidebar.html' %}
+        
         <main>
             
             <section class="hero_secction">
