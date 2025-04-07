@@ -107,6 +107,9 @@ def login(request):
     return render(request, 'login.html')
 
 
+def sobre_nosotros(request):
+    return render(request, 'sobre.html')
+
 
 def eliminar_usuario(request, usuario_id):
     try:

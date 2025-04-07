@@ -368,11 +368,13 @@ a {
     background-color: rgba(0, 0, 0, 0.05);
   }
   
+
   /* Barra de búsqueda */
   .buscar {
     flex-grow: 1;
     max-width: 500px;
     margin: 0 1rem;
+    margin-right: 150px;
   }
   
   .navbar {

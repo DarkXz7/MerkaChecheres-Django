@@ -312,6 +312,7 @@
 }
 
 .landing_page .shopping_cart_simple {
+    display: none;
     position: relative;
     width: 62px;
     height: 62px;
