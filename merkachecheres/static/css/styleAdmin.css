@@ -109,9 +109,7 @@
 
 /* Sección de usuario */
 .frame_2 {
-  display: flex;
-  gap: 1.5rem;
-  margin-left: 1rem;
+  display: flex;white
 }
 
 /* Botones de login/registro */

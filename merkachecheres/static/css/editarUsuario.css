@@ -1,6 +1,6 @@
 /* Fondo general oscuro */
 .fondoOscuro {
-    background-color: #111;
+    background-color: #EFE9DE;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -13,7 +13,7 @@
     background-color: #fff;
     padding: 2.5rem;
     border-radius: 20px;
-    max-width: 600px;
+    max-width: 700px;
     width: 100%;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
   }
@@ -68,37 +68,45 @@
   .botonesFormulario {
     margin-top: 2rem;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center ;
     gap: 1rem;
+    align-items: center;
   }
   
   .btnGuardar {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 12px;
+    background-color: #92B869;
+    color: #000;
+    border: solid 1px #000;
+    padding: 10px 20px;
+    border-radius: 20px;
     font-weight: bold;
     transition: background-color 0.3s ease;
   }
   
   .btnGuardar:hover {
-    background-color: #218838;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
   }
   
   .btnCancelar {
-    background-color: #ccc;
-    color: #111;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 12px;
+    background-color: transparent;
+    color: #000;
+    border: solid 1px #000;
+    padding: 10px 20px;
+    border-radius: 20px;
     font-weight: bold;
     transition: background-color 0.3s ease;
   }
   
   .btnCancelar:hover {
-    background-color: #aaa;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
   }
+  
   
   /* Responsive */
   @media (max-width: 768px) {

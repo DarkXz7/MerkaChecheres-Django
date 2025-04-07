@@ -2084,23 +2084,33 @@ main {
 }
 /*Carrusel*/
 .carousel-wrapper {
-    width: 100%;
+    width: 100%; /* Ancho del contenedor */
     position: relative;
-    overflow: hidden;
-  }
-  
-  .carousel {
-    animation: scrollCarousel 20s linear infinite;
-  }
-  
-  @keyframes scrollCarousel {
+    overflow: hidden; /* Esconde los elementos que se desbordan */
+}
+
+.carousel {
+    display: flex; /* Alinea los elementos horizontalmente */
+    animation: scrollCarousel 20s linear infinite; /* Animación infinita */
+}
+
+.seller_card {
+    width: 200px; /* Ajusta el tamaño de las tarjetas */
+    height: 300px; /* Ajusta el tamaño de las tarjetas */
+    background-color: lightgrey; /* Estilo de ejemplo */
+    margin-right: 20px; /* Espacio entre tarjetas */
+}
+
+/* Animación para mover el carrusel */
+@keyframes scrollCarousel {
     0% {
-      transform: translateX(0%);
+        transform: translateX(0); /* Empieza desde la posición inicial */
     }
     100% {
-      transform: translateX(-50%);
+        transform: translateX(-50%); /* Mueve el carrusel al 50% de su tamaño */
     }
-  }
+}
+
   
   .seller_card {
     width: 250px; /* Ajusta al tamaño de tus cards */
