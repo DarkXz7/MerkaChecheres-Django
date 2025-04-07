@@ -91,7 +91,7 @@
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
 }
-.LOGIN:hover,.botonComprar:hover,.carritoText:hover,.btn-ver-producto:hover,.vender-button:hover,.olvidoButton:hover,.user-slider-button:hover,.butttons-secondary:hover,.btn-facebook:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover,.dropdown:hover,.div:hover, .dropbtn:hover, #checkout:hover, #clear-cart:hover, .close-btn:hover{
+.LOGIN:hover,.botonEditarPerfil:hover,.botonComprar:hover,.carritoText:hover,.btn-ver-producto:hover,.vender-button:hover,.olvidoButton:hover,.user-slider-button:hover,.butttons-secondary:hover,.btn-facebook:hover,.btn-google:hover,.button_text_wrapper:hover,.btn-register:hover,.dropdown:hover,.div:hover, .dropbtn:hover, #checkout:hover, #clear-cart:hover, .close-btn:hover{
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     transform: scale(1.05);
     cursor: pointer;
@@ -174,48 +174,6 @@
 .hidden {
     display: none !important;
 }
-
-
-/** Estilos para el carrusel */
-.carousel-wrapper {
-    position: relative;
-    width: 80%; /* Ajusta el ancho según lo necesites */
-    overflow: hidden;
-    margin: auto;
-}
-
-.carousel {
-    display: flex;
-    transition: transform 0.5s ease; /* Animación para deslizar */
-    width: 120%;
-}
-
-.seller_card {
-    width: 200px; /* Ajusta el tamaño de las tarjetas */
-    height: 300px; /* Ajusta el tamaño de las tarjetas */
-    margin: 0 10px; /* Espaciado entre las tarjetas */
-    background-color: #ccc; /* Fondo de las tarjetas */
-}
-
-.arrow-left, .arrow-right {
-    position: absolute;
-    top: 50%;
-    padding-right: 100px;
-    transform: translateY(-50%);
-    width: 30px;
-    cursor: pointer;
-    z-index: 1;
-}
-
-.arrow-left {
-    left: 0;
-}
-
-.arrow-right {
-    right: 0;
-}
-
-
 
 #user-sidebar {
     transform: translateX(100%); /* Oculto inicialmente */

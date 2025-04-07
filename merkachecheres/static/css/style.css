@@ -39,7 +39,23 @@
     background-color: #efe9de;
     
 }
+.btn_logout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    gap: 10px; 
+}
 
+.botonEditarPerfil {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #b6d09b;
+    border: solid 1px #000;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
 .landing_page{
     width: 100%;
     display: flex;
@@ -231,123 +247,6 @@
     transition: transform 0.3s, box-shadow 0.3s;
   }
 
-@media (max-width: 768px) {
-    .landing_page {
-        padding: 10px;
-    }
-
-    .middle_nav {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .buscar {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .icons {
-        justify-content: space-around;
-        width: 100%;
-    }
-
-    .hero_secction {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .widgets {
-        flex-direction: column;
-        height: auto;
-    }
-
-    .mejores-vendedores .arrrow {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .categorias .items {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    .product {
-        width: 100%;
-        height: auto;
-    }
-
-    .contenedor-productos {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    footer .frame-24 {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    footer .frame-30 {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-/* Estilos para pantallas medianas (tabletas) */
-@media (max-width: 1024px) {
-    .middle_nav {
-        gap: 15px;
-    }
-
-    .buscar {
-        width: 80%;
-    }
-
-    .widgets {
-        gap: 15px;
-    }
-
-    .categorias .items {
-        gap: 15px;
-    }
-
-    .product {
-        width: 45%;
-    }
-
-    footer .frame-24 {
-        gap: 15px;
-    }
-}
-
-/* Estilos para pantallas grandes (escritorios) */
-@media (min-width: 1025px) {
-    .middle_nav {
-        gap: 20px;
-    }
-
-    .buscar {
-        width: 300px;
-    }
-
-    .widgets {
-        gap: 24px;
-    }
-
-    .categorias .items {
-        gap: 18px;
-    }
-
-    .product {
-        width: 234px;
-    }
-
-    footer .frame-24 {
-        gap: 24px;
-    }
-}
-
-
 .landing_page .frame_2 {
     display: flex;
     width: fit-content;
@@ -388,14 +287,16 @@
 .landing_page .button_text_wrapper {
     display: inline-flex;
     flex: 0 0 auto;
-    background-color: #a4c482;
+    background-color: #b6d09b;
     border: 1px solid;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
     position: relative;
     box-shadow: 0px 4px 4px #00000040; 
+    margin-top: 20px;
 }
 
 
@@ -1206,39 +1107,6 @@ main {
     z-index: 1;
 }
 
-.carousel-prev, .carousel-next {
-    position: absolute;
-    top: 50%; /* Centra los botones verticalmente */
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.2);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s ease;
-    z-index: 2;
-}
-
-.carousel-prev {
-    left: 10px; /* Posiciona el botón izquierdo */
-}
-
-.carousel-next {
-    right: 10px; /* Posiciona el botón derecho */
-}
-
-.carousel-prev:hover, .carousel-next:hover {
-    background: rgba(0, 0, 0, 0.8);
-}
-
-
-
 
 .landing_page .precio {
     display: flex; /* Habilita el modelo de caja flexible */
@@ -1767,6 +1635,38 @@ main {
     cursor: pointer;
 }
 
+#user-sidebar {
+    position: relative;
+    padding-top: 50px; /* espacio para que el botón no choque con el contenido */
+    width: fit-content;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: white;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 4px rgba(0,0,0,0.15);
+    color: black;
+}
+
+.user-info {
+    background-color: #bada9b; 
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 32px; 
+}
+
 .login-container .login-box h2 {
     text-align: center;
     margin-bottom: 20px;
@@ -1936,7 +1836,7 @@ main {
     background:#efe9de ;
 }
 
-.register-container .close-btn {
+.register-container{
     position: absolute;
     top: 12px;
     right: 12px;
@@ -2169,6 +2069,35 @@ main {
     /*Textos en rojo*/
     color: red;
 }
+/*Carrusel*/
+.carousel-wrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .carousel {
+    animation: scrollCarousel 20s linear infinite;
+  }
+  
+  @keyframes scrollCarousel {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .seller_card {
+    width: 250px; /* Ajusta al tamaño de tus cards */
+    height: 300px;
+    background-color: #f2f2f2;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  
+  
+
 
 /*Esto hace la transicion en los placeholders*/
 #nameInput::placeholder,

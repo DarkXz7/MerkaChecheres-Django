@@ -150,31 +150,27 @@
         </aside>
 
         <aside id="user-sidebar">
-            <button id="close-user" class="btn btn-light close-btn">
-                <i class="bi bi-x-lg">X</i>
+            <button id="close-user" class="close-btn" aria-label="Cerrar">
+                &times;
             </button>
+        
             <div class="user-info">
-                <h2>
-                    <p>Bienvenido, {{ request.session.validar.nombre }}</p>
-                </h2>
+                <h2>Bienvenido, {{ request.session.validar.nombre }}</h2>
             </div>
-            <ul id="user-items" class="list-group">                
-            </ul>
+        
+            <ul id="user-items" class="list-group"></ul>
+        
             <div class="btn_logout">
-                <div class="btn_logout">
-                    {% if request.session.validar %}
-                    <button >
-                        <img src="{% static 'img/Vector.png' %}" onclick="window.location.href='{% url 'editar_perfil' %}'" id="heartButton" alt="Usuario">
+                {% if request.session.validar %}
+                    <button class="botonEditarPerfil" onclick="window.location.href='{% url 'editar_perfil' %}'">
+                        <span>Editar perfil</span>
+                        <img src="{% static 'img/Vector.png' %}" id="heartButton" alt="Usuario">
                     </button>
-                    {% endif %}
-                </div>
-                
-                <div class="btn_logout">
-                    {% if request.session.validar %}
-                        <button class="button_text_wrapper"
-                            onclick="window.location.href='{% url 'logout' %}'">Cerrar Sesión</button>
-                    {% endif %}
-                </div>
+        
+                    <button class="button_text_wrapper" onclick="window.location.href='{% url 'logout' %}'">
+                        Cerrar Sesión
+                    </button>
+                {% endif %}
             </div>
         </aside>
         <main>
@@ -214,21 +210,21 @@
                 </div>
             </section>
             <section class="mejores-vendedores">
-                    <div class="overlap_group-3">
-                        <div class="rectangulo_4 text_wrapper-4">Mejores Vendedores</div>
+                <div class="overlap_group-3">
+                  <div class="rectangulo_4 text_wrapper-4">Mejores Vendedores</div>
+                </div>
+              
+                <div class="carousel-wrapper overflow-hidden">
+                    <div class="carousel d-flex flex-nowrap" id="carousel">
+                      <div class="seller_card frame_8 me-3 flex-shrink-0"></div>
+                      <div class="seller_card frame_9 me-3 flex-shrink-0"></div>
+                      <div class="seller_card frame_10 me-3 flex-shrink-0"></div>
+                      <div class="seller_card frame_11 me-3 flex-shrink-0"></div>
+                      <div class="seller_card frame_12 me-3 flex-shrink-0"></div>
                     </div>
-                    <div class="carousel-wrapper">
-                        <img class="arrow-left" src="../static/img/flechaIzquierda.png" alt="Flecha izquierda" onclick="moveSlide(-1)" />
-                        <div class="carousel">
-                            <div class="seller_card frame_8"></div>
-                            <div class="seller_card frame_9"></div>
-                            <div class="seller_card frame_10"></div>
-                            <div class="seller_card frame_11"></div>
-                            <div class="seller_card frame_12"></div>
-                        </div>
-                        <img class="arrow-right" src="../static/img/flechaDerecha.png" alt="Flecha derecha" onclick="moveSlide(1)" />
-                    </div>                    
-            </section>
+                  </div>
+              </section>
+            
             <section class="categorias">
                 <div class="heading_categ">
                         <div class="rectangulo_6 text_wrapper-5">Buscar por Categoría</div>
