@@ -109,7 +109,7 @@
 
 /* Sección de usuario */
 .frame_2 {
-  display: flex;white
+  display: flex white;
 }
 
 /* Botones de login/registro */
@@ -524,14 +524,21 @@ th {
 tr:hover {
   background-color: #f1f1f1;
 }
-
+.buttons.btn-danger{
+  background-color: rgba(240, 20, 47, 1);
+}
 .buttons {
-  background: transparent;
-  border: none;
+  background: #b3db89;
+  border: solid 1px #000;
   padding: 0.375rem;
+  border-radius: 10%;
   cursor: pointer;
 }
-
+.buttonss{
+  background: #b3db89;
+  border: solid 1px #000;
+  cursor: pointer;
+}
 .resultsContainer {
   display: flex;
   flex-direction: column;
