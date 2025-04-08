@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -9,6 +10,9 @@
     <link rel="stylesheet" href="{% static 'css/styleArticulo.css' %}">
 </head>
 <body>
+    <header>
+        {% include 'navbar.html' %}
+    </header>
     <div class="container">
         <h2>Publicar un artículo en MerkaChecheres</h2>
         <form method="POST" enctype="multipart/form-data" id="product-form">
@@ -97,5 +101,9 @@
         }
     </script>
     <script src="{% static 'js/vendedor.js' %}"></script>
+    <script src="{% static 'js/carrito-sidebar.js' %}"></script>
+    <script src="{% static 'js/slider.js' %}"></script>
+    <script src="{% static 'js/user-sidebar.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
 </body>
 </html>

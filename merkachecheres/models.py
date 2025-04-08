@@ -1,5 +1,6 @@
 from django.db import models
-
+import os
+from django.core.exceptions import ValidationError
 # Create your models here.
 from django.db import models
 
@@ -23,7 +24,12 @@ class Usuario(models.Model):
     def __str__(self):
         return self.username
 
-
+def validar_extension_imagen(value):
+    ext = os.path.splitext(value.name)[1]  # Obtiene la extensión del archivo
+    extensiones_validas = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']
+    if ext.lower() not in extensiones_validas:
+        raise ValidationError(f'Extensión no válida: {ext}. Solo se permiten imágenes ({", ".join(extensiones_validas)}).')
+    
 class Producto(models.Model):
     titulo = models.CharField(max_length=255)
     precio = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
@@ -48,8 +54,7 @@ class Producto(models.Model):
 
 class ImagenProducto(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='imagenes')
-    imagen = models.ImageField(upload_to='productos/imagenes/')
-
+    imagen = models.ImageField(upload_to='productos/imagenes', validators=[validar_extension_imagen])
     
     def __str__(self):
         return f"Imagen de {self.producto.titulo}"

@@ -107,6 +107,13 @@ def login(request):
     return render(request, 'login.html')
 
 
+def validar_extension_imagen(value):
+    ext = os.path.splitext(value.name)[1]  # Obtiene la extensión del archivo
+    extensiones_validas = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']
+    if ext.lower() not in extensiones_validas:
+        raise ValidationError(f'Extensión no válida: {ext}. Solo se permiten imágenes ({", ".join(extensiones_validas)}).')
+
+
 def sobre_nosotros(request):
     return render(request, 'sobre.html')
 
