@@ -32,7 +32,7 @@ def validar_extension_imagen(value):
     ext = os.path.splitext(value.name)[1]  # Obtiene la extensión del archivo
     extensiones_validas = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']
     if ext.lower() not in extensiones_validas:
-        raise ValidationError(f'Extensión no válida: {ext}. Solo se permiten imágenes ({", ".join(extensiones_validas)}).')
+        raise ValidationError(f'Extensión no válida: {ext}. Solo se permiten imágenes /n ({", ".join(extensiones_validas)}).')
     
 class Producto(models.Model):
     titulo = models.CharField(max_length=255)
