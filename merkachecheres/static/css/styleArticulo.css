@@ -206,7 +206,9 @@ body {
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
 }
-
+.back-button-container{
+  display: flex;
+}
 #message-container {
   margin-top: 20px;
 }

@@ -62,8 +62,14 @@
         </div>
     </header>
     <div class="container">
+        <div class="header">
+            <div class="back-button-container">
+                <button class="back-button" onclick="goBack()">← </button>
+                <h2>Publicar un artículo en MerkaChecheres</h2>
+            </div>
+        </div>
         
-        <h2>Publicar un artículo en MerkaChecheres</h2>
+        
         <form method="POST" enctype="multipart/form-data" id="product-form">
             {% csrf_token %}
             
@@ -145,5 +151,10 @@
     <script src="{% static 'js/slider.js' %}"></script>
     <script src="{% static 'js/user-sidebar.js' %}"></script>
     <script src="{% static 'js/index.js' %}"></script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>
