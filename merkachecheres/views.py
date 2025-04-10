@@ -3,10 +3,10 @@ from .models import Usuario
 from .models import Producto, ImagenProducto
 from django.contrib import messages
 from decimal import Decimal, InvalidOperation
-from django.http import JsonResponse
+
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import make_password
-from django.utils.crypto import get_random_string
+
 from .colombia_data import DEPARTAMENTOS_Y_MUNICIPIOS
 from django.contrib.messages import get_messages
 from django.shortcuts import redirect, get_object_or_404
@@ -99,7 +99,7 @@ def login(request):
             elif usuario.rol == 2:  # Cliente
                 return redirect('index')  # Redirige a la vista `index`
             elif usuario.rol == 3:  # Vendedor
-                return redirect('vendedor_dashboard')
+                return redirect('index')
 
         except Usuario.DoesNotExist:
             messages.error(request, "Correo electrónico o contraseña incorrectos.")
@@ -140,7 +140,13 @@ def editar_usuario(request, usuario_id):
             usuario.direccion = request.POST.get('direccion')
             usuario.municipio = request.POST.get('municipio')
             usuario.rol = request.POST.get('rol')
+
+            nueva_contrasena = request.POST.get('password')
+            if nueva_contrasena:
+                usuario.password = make_password(nueva_contrasena)  # Encriptar la contraseña
+
             usuario.save()
+            
 
             messages.success(request, f"El usuario {usuario.full_name} ha sido actualizado exitosamente.")
             return redirect('admin_dashboard')
@@ -360,12 +366,37 @@ def editar_perfil(request):
     municipios = DEPARTAMENTOS_Y_MUNICIPIOS.get(usuario.departamento, [])
 
     if request.method == 'POST':
-        usuario.full_name = request.POST.get('nombreApellido')
-        usuario.email = request.POST.get('email')
-        usuario.telefono = request.POST.get('telefono')
-        usuario.direccion = request.POST.get('direccion')
-        usuario.departamento = request.POST.get('departamento')
-        usuario.municipio = request.POST.get('municipio')
+        # Obtener los datos del formulario
+        full_name = request.POST.get('nombreApellido')
+        email = request.POST.get('email')
+        telefono = request.POST.get('telefono')
+        direccion = request.POST.get('direccion')
+        departamento = request.POST.get('departamento')
+        municipio = request.POST.get('municipio')
+        nueva_contrasena = request.POST.get('password')
+
+        # Validar que los campos requeridos no estén vacíos
+        if not full_name or not email or not telefono or not direccion or not departamento or not municipio:
+            messages.error(request, "Todos los campos son obligatorios")
+            return render(request, 'editar.html', {
+                'usuario': usuario,
+                'departamentos': DEPARTAMENTOS_Y_MUNICIPIOS.keys(),
+                'departamentos_y_municipios': DEPARTAMENTOS_Y_MUNICIPIOS,
+                'municipios': municipios
+            })
+
+        # Actualizar los datos del usuario
+        usuario.full_name = full_name
+        usuario.email = email
+        usuario.telefono = telefono
+        usuario.direccion = direccion
+        usuario.departamento = departamento
+        usuario.municipio = municipio
+
+        # Actualizar la contraseña si se proporciona una nueva
+        if nueva_contrasena and nueva_contrasena.strip():
+            usuario.password = nueva_contrasena
+
         usuario.save()
 
         messages.success(request, "Perfil actualizado exitosamente.")
@@ -373,7 +404,6 @@ def editar_perfil(request):
 
     return render(request, 'editar.html', {
         'usuario': usuario,
-        
         'departamentos': DEPARTAMENTOS_Y_MUNICIPIOS.keys(),
         'departamentos_y_municipios': DEPARTAMENTOS_Y_MUNICIPIOS,
         'municipios': municipios
@@ -427,23 +457,43 @@ def detalle_producto(request, producto_id):
 
 
 def index(request):
-    # Obtén todos los productos disponibles
-    
-    productos = Producto.objects.order_by('?')[:5] 
-    
-    # Verifica si hay una sesión activa
+    """
+    Vista para la página principal (index) de la aplicación.
+    Esta vista obtiene productos, verifica si hay una sesión activa y calcula el total del carrito.
+    """
+
+    # 1. Obtener productos disponibles
+    # Se seleccionan 5 productos aleatorios de la base de datos para mostrarlos en la página principal.
+    productos = Producto.objects.order_by('?')[:5]
+
+    # 2. Verificar si hay una sesión activa
+    # Se intenta obtener la información de la sesión del usuario desde `request.session`.
     sesion_activa = request.session.get('validar', None)
+    usuario = None  # Inicializa el usuario como `None` por defecto.
 
+    if sesion_activa:
+        # Si hay una sesión activa, se obtiene el ID del usuario desde la sesión.
+        usuario_id = sesion_activa.get('id')
+        # Se busca el usuario en la base de datos utilizando el ID.
+        usuario = Usuario.objects.get(id=usuario_id)
+
+    # 3. Obtener el carrito de la sesión
+    # Se obtiene el carrito almacenado en la sesión. Si no existe, se inicializa como un diccionario vacío.
     carrito = request.session.get('carrito', {})
-    total_carrito = sum(item['precio'] * item['cantidad'] for item in carrito.values())
-    
-    return render(request, "index.html", {
-        'productos': productos,
-        'productos_count': productos.count(),
-        'total_carrito': total_carrito,  # Pasa el total al contexto
-        
-    })
 
+    # 4. Calcular el total del carrito
+    # Se calcula el total del carrito sumando el precio de cada producto multiplicado por su cantidad.
+    total_carrito = sum(item['precio'] * item['cantidad'] for item in carrito.values())
+
+    # 5. Renderizar la plantilla `index.html`
+    # Se pasa el contexto a la plantilla para que pueda mostrar los datos necesarios.
+    return render(request, "index.html", {
+        'productos': productos,  # Lista de productos seleccionados aleatoriamente.
+        'productos_count': productos.count(),  # Cantidad de productos seleccionados.
+        'total_carrito': total_carrito,  # Total del carrito (precio total de los productos en el carrito).
+        'usuario': usuario,  # Objeto del usuario autenticado (si hay sesión activa).
+    })
+    
 def vaciar_carrito(request):
     # Limpia los mensajes existentes
     

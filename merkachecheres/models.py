@@ -8,7 +8,7 @@ class Usuario(models.Model):
     full_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, unique=True)
-    password = models.CharField(max_length=128) 
+    password = models.CharField(max_length=128, blank=True, null=True) 
     telefono = models.CharField(max_length=15, default="Sin teléfono")  # Valor por defecto
     departamento = models.CharField(max_length=100, default="Sin departamento")  # Valor por defecto
     direccion = models.CharField(max_length=255, default="Sin dirección")  # Valor por defecto
@@ -23,6 +23,10 @@ class Usuario(models.Model):
     
     def __str__(self):
         return self.username
+
+
+
+
 
 def validar_extension_imagen(value):
     ext = os.path.splitext(value.name)[1]  # Obtiene la extensión del archivo

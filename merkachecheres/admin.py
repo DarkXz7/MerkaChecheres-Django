@@ -11,9 +11,9 @@ from django.utils.safestring import mark_safe
 
 
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'rol', 'password')  # Campos visibles en la lista
+    list_display = ('username', 'email', 'rol', 'password_field')  # Campos visibles en la lista
 
-    def password(self, obj):
+    def password_field(self, obj):
         # Muestra la contraseña encriptada con un botón para mostrar/ocultar
         return format_html(
             '''
@@ -38,9 +38,8 @@ class UsuarioAdmin(admin.ModelAdmin):
             obj.id
         )
 
-    password.short_description = "Contraseña"
+    password_field.short_description = "Contraseña"
 
-admin.site.register(Usuario, UsuarioAdmin)
 
 
 
@@ -73,3 +72,4 @@ class ProductoAdmin(admin.ModelAdmin):
 
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(ImagenProducto)
+admin.site.register(Usuario, UsuarioAdmin)
