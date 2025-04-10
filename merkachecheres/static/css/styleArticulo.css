@@ -206,31 +206,35 @@ body {
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
 }
-
+.back-button-container{
+  display: flex;
+}
 #message-container {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 1000;
-  width: auto;
-  max-width: 300px;
-  transition: opacity 0.5s ease;
+  margin-top: 20px;
 }
 
-.error-message {
-  color: red;
-  font-size: 0.9em;
-  margin-top: 5px;
-}
-
-.alert {
+.alert-error {
   padding: 10px;
   border-radius: 5px;
-  color: #fff;
-  background-color: #28a745;
+  color: #fff; /* Texto blanco */
+  background-color: #dc3545; /* Rojo para el fondo */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   margin-bottom: 10px;
+  transition: all 5s ease;
+  
 }
+
+.alert-success {
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff; /* Texto blanco */
+  background-color: #28a745; /* Verde para el fondo */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  transition: all 5s ease;
+}
+
+
 
 /* Contenedor del formulario */
 .container {

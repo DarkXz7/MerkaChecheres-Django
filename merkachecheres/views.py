@@ -3,16 +3,17 @@ from .models import Usuario
 from .models import Producto, ImagenProducto
 from django.contrib import messages
 from decimal import Decimal, InvalidOperation
-
+from django.core.exceptions import ValidationError
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import make_password
-
+from django.contrib import messages
+from decimal import Decimal
 from .colombia_data import DEPARTAMENTOS_Y_MUNICIPIOS
 from django.contrib.messages import get_messages
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib import messages
 from .models import Producto, Carrito
-
+import os
 def registro(request):
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
@@ -192,6 +193,19 @@ def publicar(request):
         # Si hay errores, no continuar
         if len(list(messages.get_messages(request))) > 0:
             return render(request, 'publicarArticulo.html')
+
+        # Validar que todos los archivos sean imágenes válidas
+        for imagen in imagenes:
+            try:
+                validar_extension_imagen(imagen)  # Usa el validador definido en el modelo
+            except ValidationError as e:
+                messages.error(request, f"El Archivo {imagen.name} no es válido. {e}")
+                return render(request, 'publicarArticulo.html')
+
+        # Si hay errores, no continuar
+        if len(list(messages.get_messages(request))) > 0:
+            return render(request, 'publicarArticulo.html')
+
 
         try:
             # Convertir categoría a entero
