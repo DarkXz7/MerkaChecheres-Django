@@ -27,4 +27,5 @@ urlpatterns = [
     path('eliminar_usuario/<int:usuario_id>/', views.eliminar_usuario, name='eliminar_usuario'),
     path('editar_usuario/<int:usuario_id>/', views.editar_usuario, name='editar_usuario'),
     path('sobre_nosotros/', views.sobre_nosotros, name='sobre_nosotros'),
+    path('landing_page_admin/', views.landing_page_admin, name='landing_page_admin'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

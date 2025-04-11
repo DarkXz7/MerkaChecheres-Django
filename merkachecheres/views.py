@@ -424,6 +424,8 @@ def editar_perfil(request):
     })
 
 
+def landing_page_admin(request):
+    return render(request, 'landingPageAdmin.html')
 
 def admin_dashboard(request):
     usuarios = Usuario.objects.all()
