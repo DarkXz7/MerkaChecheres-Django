@@ -14,6 +14,7 @@ urlpatterns = [
     path('producto/<int:producto_id>/', views.producto, name='producto'),
     path('producto/', views.producto, name='producto'),
     path('logout/', views.logout, name='logout'),
+    path('test_gsap/', views.test_gsap, name='test_gsap'),
     path('registro/', views.registro, name='registro'),
     path('completardatos/', views.completardatos, name='completardatos'),
     path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),

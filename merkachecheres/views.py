@@ -527,5 +527,8 @@ def vaciar_carrito(request):
 def adminlogin(request):
     return render(request, "adminlogin.html")
 
+def test_gsap(request):
+    return render(request, "test_gsap.html")
+
 def completardatos(request):
     return render(request, "completardatos.html")

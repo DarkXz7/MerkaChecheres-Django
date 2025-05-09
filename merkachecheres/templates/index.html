@@ -1,13 +1,14 @@
+
 {% load static %}
 
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
+    
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/styleguide.css' %}">
     <link rel="stylesheet" href="{% static 'css/carrito.css' %}">
@@ -17,6 +18,8 @@
 <body>
     <div class="landing_page">
         <header>
+            
+            
             <div class="navigation">
                 <div class="navigation_wrapper">
                     <div class="middle_nav_wrapper">
@@ -392,11 +395,16 @@
             
         </footer>
     </div>
+    <!-- Scripts de lenis-->
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@latest/bundled/lenis.min.js"></script>
+    <script src="{% static 'js/lenis-config.js' %}"></script>
+    <!-- Scripts de lenis -->
     <script src="{% static 'js/carrito-sidebar.js' %}"></script>
     <script src="{% static 'js/slider.js' %}"></script>
     <script src="{% static 'js/user-sidebar.js' %}"></script>
     <script src="{% static 'js/index.js' %}"></script>
 </body>
+
 <script>
     // Esperar 3 segundos y ocultar el mensaje
     setTimeout(() => {
@@ -410,4 +418,7 @@
         }
     }, 3000); // 3000 ms = 3 segundos
 </script>
+
+
+
 </html>
